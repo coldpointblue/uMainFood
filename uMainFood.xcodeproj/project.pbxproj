@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		7262CEF62B8147F2009D1A0C /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 7262CEF42B8147F2009D1A0C /* Localizable.strings */; };
 		72664BF62B7E4C9A003505DA /* uMainFoodApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72664BF52B7E4C9A003505DA /* uMainFoodApp.swift */; };
 		72664BF82B7E4C9A003505DA /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72664BF72B7E4C9A003505DA /* ContentView.swift */; };
 		72664BFA2B7E4C9B003505DA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 72664BF92B7E4C9B003505DA /* Assets.xcassets */; };
@@ -42,6 +43,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		7262CEF52B8147F2009D1A0C /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Localizable.strings; sourceTree = "<group>"; };
 		72664BF22B7E4C9A003505DA /* uMainFood.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = uMainFood.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		72664BF52B7E4C9A003505DA /* uMainFoodApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = uMainFoodApp.swift; sourceTree = "<group>"; };
 		72664BF72B7E4C9A003505DA /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -87,6 +89,22 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		7262CEF22B81472C009D1A0C /* Localization */ = {
+			isa = PBXGroup;
+			children = (
+				7262CEF32B8147BF009D1A0C /* Base.lproj */,
+			);
+			path = Localization;
+			sourceTree = "<group>";
+		};
+		7262CEF32B8147BF009D1A0C /* Base.lproj */ = {
+			isa = PBXGroup;
+			children = (
+				7262CEF42B8147F2009D1A0C /* Localizable.strings */,
+			);
+			path = Base.lproj;
+			sourceTree = "<group>";
+		};
 		72664BE92B7E4C9A003505DA = {
 			isa = PBXGroup;
 			children = (
@@ -113,6 +131,7 @@
 				72664BF52B7E4C9A003505DA /* uMainFoodApp.swift */,
 				72664BF72B7E4C9A003505DA /* ContentView.swift */,
 				72A319AC2B80D3DD00FC67B8 /* RestaurantCard.swift */,
+				7262CEF22B81472C009D1A0C /* Localization */,
 				72664C212B7E4D33003505DA /* API */,
 				72664BF92B7E4C9B003505DA /* Assets.xcassets */,
 				72664BFB2B7E4C9B003505DA /* Preview Content */,
@@ -272,6 +291,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				72664BFD2B7E4C9B003505DA /* Preview Assets.xcassets in Resources */,
+				7262CEF62B8147F2009D1A0C /* Localizable.strings in Resources */,
 				72664BFA2B7E4C9B003505DA /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -341,6 +361,17 @@
 			targetProxy = 72664C0D2B7E4C9B003505DA /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		7262CEF42B8147F2009D1A0C /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				7262CEF52B8147F2009D1A0C /* Base */,
+			);
+			name = Localizable.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
 		72664C142B7E4C9B003505DA /* Debug */ = {

@@ -11,7 +11,7 @@
 //
 //  https://github.com/coldpointblue
 //  Created by Hugo Diaz on 2024-02-17.
-//  
+//
 //  ----------------------------------------------------
 
 //  ----------------------------------------------------
@@ -27,6 +27,8 @@ struct AppConstants {
     static let grayLightShadeColor = Color(red: 248/255, green: 248/255, blue: 248/255)
     static let overViewPadding: CGFloat = 8
     static let grayPlaceholderShadeColor = Color(red: 161/255, green: 161/255, blue: 161/255)
+    static let grayDarkerShade = Color.gray.opacity(0.2)
+    static let grayTagShadeColor = Color.gray.opacity(0.7706)
 }
 
 struct RestaurantCard: View {
@@ -36,7 +38,7 @@ struct RestaurantCard: View {
             VStack(spacing: 0) {
                 FoodImageView(imageName: "wanted_image_name")
                     .roundTopCorners()
-                Overview(rating: 5.0)
+                Overview(rating: 5, deliveryTimeInMinutes: 121, activeTags: ["Tag", "Tag", "Tag"], title: "Title")
             }
             .frame(width: AppConstants.picSize.width)
             .aspectRatio(AppConstants.picSize.width / AppConstants.picSize.height, contentMode: .fit)
@@ -45,18 +47,24 @@ struct RestaurantCard: View {
 }
 
 // Image view with conditional loading
-struct FoodImageView: View {
+private struct FoodImageView: View {
     let imageName: String
+    @State private var showErrorImage = false
     
     var body: some View {
         Group {
-            if let image = UIImage(named: imageName) {
+            if let image = UIImage(named: imageName), !showErrorImage {
                 Image(uiImage: image)
                     .resizable()
                     .aspectRatio(AppConstants.picSize, contentMode: .fill)
                     .clipped()
             } else {
                 placeholderImage
+            }
+        }
+        .onAppear {
+            if UIImage(named: imageName) == nil {
+                showErrorImage = true
             }
         }
         .frame(width: AppConstants.picSize.width, height: AppConstants.picSize.height)
@@ -76,17 +84,29 @@ struct FoodImageView: View {
     }
 }
 
-// Overview view with dynamic rating display
-struct Overview: View {
+// Overview view with dynamic display
+private struct Overview: View {
     let rating: Double
-    private let grayDarkerShade = Color.gray.opacity(0.2)
-    private let grayLightShadeColor = Color.gray.opacity(0.7706)
+    let deliveryTimeInMinutes: Int
+    let activeTags: [String]
+    let title: String
+    
+    // Default parameter values
+    init(rating: Double = 5.0,
+         deliveryTimeInMinutes: Int = 30,
+         activeTags: [String] = ["Tag", "Tag", "Tag"],
+         title: String = "Title") {
+        self.rating = rating
+        self.deliveryTimeInMinutes = deliveryTimeInMinutes
+        self.activeTags = activeTags
+        self.title = title
+    }
     
     var body: some View {
         ZStack {
             Rectangle()
                 .foregroundColor(.white)
-                .shadow(color: grayDarkerShade, radius: 2, x: 0, y: 5)
+                .shadow(color: AppConstants.grayDarkerShade, radius: 2, x: 0, y: 5)
                 .padding(.horizontal, 1)
             
             content
@@ -96,49 +116,123 @@ struct Overview: View {
     
     private var content: some View {
         VStack {
-            headline
-            tags
-            deliveryEstimate
+            HeadlineView(title: title, rating: rating)
+            TagsView(activeTags: activeTags)
+            DeliveryEstimateView(minutes: deliveryTimeInMinutes)
         }
     }
+}
+
+// MARK: - Reusable Components
+struct HeadlineView: View {
+    let title: String
+    let rating: Double
     
-    private var headline: some View {
+    var body: some View {
         HStack {
-            Text("Title")
-                .font(.title)
+            Text(title).font(.title)
             Spacer()
-            ratingView
+            RatingView(rating: rating)
         }
     }
+}
+
+struct RatingView: View {
+    let rating: Double
     
-    private var tags: some View {
+    var body: some View {
         HStack {
-            Text("Tag • Tag • Tag")
-                .foregroundColor(grayLightShadeColor)
-                .font(.subheadline)
-                .fontWeight(.heavy)
-            Spacer()
-        }
-    }
-    
-    private var deliveryEstimate: some View {
-        HStack {
-            Image(systemName: "clock")
-                .scaleEffect(x: -1, y: 1)
-                .foregroundColor(.red)
-            Text("30 mins")
-            Spacer()
-        }
-        .font(.footnote)
-    }
-    
-    private var ratingView: some View {
-        Group {
             Text("★").foregroundColor(.yellow)
             Text(String(format: "%.1f", max(0, min(rating, 5.0))))
                 .bold()
                 .padding(.trailing)
         }
+    }
+}
+
+struct TagsView: View {
+    let activeTags: [String]
+    
+    var body: some View {
+        HStack {
+            Text(activeTags.joined(separator: " • "))
+                .foregroundColor(AppConstants.grayTagShadeColor)
+                .font(.subheadline)
+                .fontWeight(.heavy)
+            Spacer()
+        }
+    }
+}
+
+// Extension to round the top corners of a view
+struct DeliveryEstimateView: View {
+    let minutes: Int
+    
+    var body: some View {
+        HStack {
+            Image(systemName: "clock")
+                .scaleEffect(x: -1, y: 1)
+                .foregroundColor(.red)
+            Text(TimeFormatter.format(minutes: minutes))
+            Spacer()
+        }
+        .font(.footnote)
+    }
+}
+
+// MARK: - Time Formatting
+private struct TimeFormatter {
+    static func format(minutes: Int) -> String {
+        switch max(0, minutes) {
+        case 0:
+            return localizedStringForKey("here_now")
+        case 1:
+            return localizedStringForKey("single_minute_format")
+        case 2..<60:
+            return localizedPluralKey("minutes_format", count: minutes)
+        default:
+            return formatHoursAndMinutes(from: minutes)
+        }
+    }
+    
+    /// Formats a given duration greater than 59 minutes into a human-readable string representing hours and, optionally, minutes.
+    ///
+    /// Calculates hours and minutes from the total duration provided in minutes. It then formats
+    /// these into a localized string for display. If the duration includes only hours (with zero minutes),
+    /// only the hour part is returned. If there are additional minutes, they are included in the formatted output.
+    ///
+    /// - Parameter minutesCounted: The duration in minutes to be formatted.
+    /// - Returns: A string formatted to include hours and, if applicable, minutes. The output is localized
+    ///            and adheres to the current locale's conventions for representing time durations.
+    ///
+    /// Example output:
+    /// - For 61 minutes, the output could be "1 hour 1 minute" assuming the locale formats it this way.
+    /// - For 120 minutes, the output would be "2 hours".
+    private static func formatHoursAndMinutes(from minutesCounted: Int) -> String {
+        let minutes = max(0, minutesCounted)
+        let hours = minutes / 60
+        let remainderMinutes = minutes % 60
+        
+        let hourString = hours == 1 ?
+        localizedStringForKey("single_hour_format") :
+        localizedPluralKey("hours_format", count: hours)
+        
+        guard remainderMinutes > 0 else { return hourString }
+        
+        let minuteString = remainderMinutes == 1 ?
+        localizedStringForKey("single_minute_format") :
+        localizedPluralKey("minutes_format", count: remainderMinutes)
+        
+        return "\(hourString) \(minuteString)"
+    }
+    
+    private static func localizedPluralKey(_ key: String, count: Int) -> String {
+        let format = NSLocalizedString(key, comment: "")
+        return String(format: format, count)
+    }
+    
+    private static func localizedStringForKey(_ key: String) -> String {
+        NSLocalizedString(key, comment: "")
     }
 }
 
@@ -161,3 +255,4 @@ struct CustomAppView_Previews: PreviewProvider {
         RestaurantCard()
     }
 }
+
