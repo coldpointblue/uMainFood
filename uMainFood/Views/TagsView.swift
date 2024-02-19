@@ -30,7 +30,7 @@ struct TagsView: View {
             let style = isCompact ? FontStyleCombo.compactStyle : FontStyleCombo.regularStyle
             
             Text(activeTags.joined(separator: " • "))
-                .foregroundColor(RCVConst.grayTagShadeColor)
+                .foregroundColor(TVConst.grayTagShadeColor)
                 .font(style.font)
                 .fontWeight(style.weight)
             Spacer()
@@ -46,6 +46,13 @@ struct FontStyleCombo {
 extension FontStyleCombo {
     static let compactStyle = FontStyleCombo(font: .subheadline, weight: .heavy)
     static let regularStyle = FontStyleCombo(font: .title2, weight: .regular)
+}
+
+// Constants for simpler updates
+typealias TVConst = TagsViewConst
+
+struct TagsViewConst {
+    static let grayTagShadeColor = Color.gray.opacity(0.7706)
 }
 
 struct TagsView_Previews: PreviewProvider {

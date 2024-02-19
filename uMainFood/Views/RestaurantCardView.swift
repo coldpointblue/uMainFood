@@ -45,7 +45,6 @@ struct RestaurantCardViewConst {
     static let overViewPadding: CGFloat = 8
     static let grayPlaceholderShadeColor = Color(red: 161/255, green: 161/255, blue: 161/255)
     static let grayDarkerShade = Color.gray.opacity(0.2)
-    static let grayTagShadeColor = Color.gray.opacity(0.7706)
 }
 
 struct RestaurantCardView_Previews: PreviewProvider {
