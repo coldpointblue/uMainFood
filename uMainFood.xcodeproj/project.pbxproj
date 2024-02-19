@@ -30,6 +30,7 @@
 		727151652B83951100753B66 /* RCOverviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 727151642B83951100753B66 /* RCOverviewView.swift */; };
 		727151672B83969F00753B66 /* RCFoodImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 727151662B83969F00753B66 /* RCFoodImageView.swift */; };
 		7271516F2B83B50E00753B66 /* DCOpenOrNotView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7271516E2B83B50E00753B66 /* DCOpenOrNotView.swift */; };
+		727151712B83B5E900753B66 /* DCTitleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 727151702B83B5E900753B66 /* DCTitleView.swift */; };
 		72A319AD2B80D3DD00FC67B8 /* RestaurantCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72A319AC2B80D3DD00FC67B8 /* RestaurantCardView.swift */; };
 /* End PBXBuildFile section */
 
@@ -77,6 +78,7 @@
 		727151642B83951100753B66 /* RCOverviewView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RCOverviewView.swift; sourceTree = "<group>"; };
 		727151662B83969F00753B66 /* RCFoodImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RCFoodImageView.swift; sourceTree = "<group>"; };
 		7271516E2B83B50E00753B66 /* DCOpenOrNotView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DCOpenOrNotView.swift; sourceTree = "<group>"; };
+		727151702B83B5E900753B66 /* DCTitleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DCTitleView.swift; sourceTree = "<group>"; };
 		72A319AC2B80D3DD00FC67B8 /* RestaurantCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestaurantCardView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -205,6 +207,7 @@
 		727151552B83880300753B66 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				727151702B83B5E900753B66 /* DCTitleView.swift */,
 				7271516E2B83B50E00753B66 /* DCOpenOrNotView.swift */,
 				72A319AC2B80D3DD00FC67B8 /* RestaurantCardView.swift */,
 				727151662B83969F00753B66 /* RCFoodImageView.swift */,
@@ -364,6 +367,7 @@
 				72664C262B7E4E28003505DA /* API.Model.Error.swift in Sources */,
 				72664C282B7E4E80003505DA /* API.Model.Filter.swift in Sources */,
 				72A319AD2B80D3DD00FC67B8 /* RestaurantCardView.swift in Sources */,
+				727151712B83B5E900753B66 /* DCTitleView.swift in Sources */,
 				72664C242B7E4DA4003505DA /* API.Model.swift in Sources */,
 				727151592B838ACE00753B66 /* TagsView.swift in Sources */,
 				7271515D2B838D1C00753B66 /* RCRatingView.swift in Sources */,
