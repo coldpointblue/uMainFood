@@ -24,7 +24,7 @@ import SwiftUI
 struct RestaurantCardView: View {
     var body: some View {
         ZStack {
-            Color(RCVConst.grayLightShadeColor)
+            Color(Color.grayLightShadeColor)
             VStack(spacing: 0) {
                 RCFoodImageView(imageName: "wanted_image_name")
                     .roundTopCorners()
@@ -41,10 +41,7 @@ typealias RCVConst = RestaurantCardViewConst
 
 struct RestaurantCardViewConst {
     static let picSize = CGSize(width: 375, height: 220)
-    static let grayLightShadeColor = Color(red: 248/255, green: 248/255, blue: 248/255)
     static let overViewPadding: CGFloat = 8
-    static let grayPlaceholderShadeColor = Color(red: 161/255, green: 161/255, blue: 161/255)
-    static let grayDarkerShade = Color.gray.opacity(0.2)
 }
 
 struct RestaurantCardView_Previews: PreviewProvider {

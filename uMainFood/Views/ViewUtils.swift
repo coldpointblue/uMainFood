@@ -37,6 +37,29 @@ extension View {
     }
 }
 
+// Color constants
+extension Color {
+    static let grayDarkerShade = Color.gray.opacity(0.2)
+    static let grayLightShadeColor = Color(red: 248/255, green: 248/255, blue: 248/255)
+    static let grayPlaceholderShadeColor = Color(red: 161/255, green: 161/255, blue: 161/255)
+}
+
+// Reusable card background style
+extension View {
+    func cardBackgroundStyle() -> some View {
+        self.modifier(BackgroundStyleModifier())
+    }
+}
+
+private struct BackgroundStyleModifier: ViewModifier {
+    func body(content: Content) -> some View {
+        content
+            .foregroundColor(.white)
+            .shadow(color: .grayDarkerShade, radius: 2, x: 0, y: 5)
+            .padding(.horizontal, 1)
+    }
+}
+
 // MARK: - Time Formatting
 struct TimeIntoWordsFormatter {
     static func format(minutes: Int) -> String {

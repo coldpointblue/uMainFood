@@ -52,7 +52,7 @@ struct RCFoodImageView: View {
                 .resizable()
                 .scaledToFit()
                 .padding(40)
-                .foregroundColor(RCVConst.grayPlaceholderShadeColor)
+                .foregroundColor(.grayPlaceholderShadeColor)
                 .frame(width: RCVConst.picSize.width, height: RCVConst.picSize.height)
                 .font(.system(size: 100))
         }

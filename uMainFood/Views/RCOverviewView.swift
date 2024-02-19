@@ -42,10 +42,7 @@ struct RCOverviewView: View {
     var body: some View {
         ZStack {
             Rectangle()
-                .foregroundColor(.white)
-                .shadow(color: RCVConst.grayDarkerShade, radius: 2, x: 0, y: 5)
-                .padding(.horizontal, 1)
-            
+                .cardBackgroundStyle()
             content
                 .padding(.horizontal, RCVConst.overViewPadding)
         }
