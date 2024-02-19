@@ -3,3 +3,5 @@
 "hours_format" = "%d hours";
 "single_hour_format" = "1 hour";
 "here_now" = "here now";
+"open_sign" = "Open";
+"closed_sign" = "Closed";
