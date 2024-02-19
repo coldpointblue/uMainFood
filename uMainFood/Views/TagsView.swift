@@ -11,7 +11,7 @@
 //
 //  https://github.com/coldpointblue
 //  Created by Hugo Diaz on 2024-02-19.
-//  
+//
 //  ----------------------------------------------------
 
 //  ----------------------------------------------------
@@ -23,20 +23,33 @@ import SwiftUI
 
 struct TagsView: View {
     let activeTags: [String]
+    let isCompact : Bool
     
     var body: some View {
         HStack {
+            let style = isCompact ? FontStyleCombo.compactStyle : FontStyleCombo.regularStyle
+            
             Text(activeTags.joined(separator: " • "))
                 .foregroundColor(RCVConst.grayTagShadeColor)
-                .font(.subheadline)
-                .fontWeight(.heavy)
+                .font(style.font)
+                .fontWeight(style.weight)
             Spacer()
         }
     }
 }
 
+struct FontStyleCombo {
+    var font: Font
+    var weight: Font.Weight
+}
+
+extension FontStyleCombo {
+    static let compactStyle = FontStyleCombo(font: .subheadline, weight: .heavy)
+    static let regularStyle = FontStyleCombo(font: .title2, weight: .regular)
+}
+
 struct TagsView_Previews: PreviewProvider {
     static var previews: some View {
-        TagsView(activeTags: ["ExampleTag", "OtherExampleTag"])
+        TagsView(activeTags: ["ExampleTag", "OtherExampleTag"], isCompact: true)
     }
 }

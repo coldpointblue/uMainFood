@@ -54,7 +54,7 @@ struct RCOverviewView: View {
     private var content: some View {
         VStack {
             RCHeadlineView(title: title, rating: rating)
-            TagsView(activeTags: activeTags)
+            TagsView(activeTags: activeTags, isCompact: true)
             RCDeliveryEstimateView(minutes: deliveryTimeInMinutes)
         }
     }

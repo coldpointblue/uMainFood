@@ -27,7 +27,8 @@ struct RCHeadlineView: View {
     
     var body: some View {
         HStack {
-            Text(title).font(.title)
+            Text(title)
+                .font(.title)
             Spacer()
             RCRatingView(rating: rating)
         }
