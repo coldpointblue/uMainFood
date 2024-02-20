@@ -40,13 +40,13 @@ struct DCDetailsView: View {
             detailsBackground
             content
         }
+        .frame(width: DCConst.picSize.width - (spaceToEdge * 2), height: DCConst.picSize.height)
         .padding(EdgeInsets(top: 0, leading: spaceToEdge, bottom: 0, trailing: spaceToEdge))
     }
     
     private var detailsBackground: some View {
         RoundedRectangle(cornerRadius: 20)
             .cardBackgroundStyle()
-            .frame(width: DCConst.picSize.width - (spaceToEdge * 2), height: DCConst.picSize.height)
     }
     
     private var content: some View {
