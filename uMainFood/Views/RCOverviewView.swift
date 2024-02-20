@@ -40,11 +40,13 @@ struct RCOverviewView: View {
     }
     
     var body: some View {
-        ZStack {
-            Rectangle()
-                .cardBackgroundStyle()
+        VStack(spacing: 0) {
             content
                 .padding(.horizontal, RCVConst.overViewPadding)
+                .padding(.vertical)
+                .background(Rectangle()
+                    .cardBackgroundStyle())
+            Spacer()
         }
     }
     

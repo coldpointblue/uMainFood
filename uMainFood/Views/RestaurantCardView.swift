@@ -30,7 +30,7 @@ struct RestaurantCardView: View {
                     .roundTopCorners()
                 RCOverviewView(rating: 5, deliveryTimeInMinutes: 121, activeTags: ["Tag", "Tag", "Tag"], title: "Title")
             }
-            .frame(width: RCVConst.picSize.width)
+            .frame(maxWidth: .infinity, maxHeight: .infinity)
             .aspectRatio(RCVConst.picSize.width / RCVConst.picSize.height, contentMode: .fit)
         }
     }
