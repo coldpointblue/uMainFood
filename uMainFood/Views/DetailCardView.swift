@@ -24,7 +24,7 @@ import SwiftUI
 struct DetailCardView: View {
     var body: some View {
         ZStack {
-            Color(Color.grayLightShadeColor)
+            Color(Color.clear)
             VStack(spacing: 0) {
                 RCFoodImageView(imageName: "exampleImage")
                 DCDetailsView(title: "Emilias Fancy Food")
