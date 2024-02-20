@@ -24,7 +24,7 @@ import SwiftUI
 struct RestaurantCardView: View {
     var body: some View {
         ZStack {
-            Color(Color.grayLightShadeColor)
+            Color(Color.clear)
             VStack(spacing: 0) {
                 RCFoodImageView(imageName: "wanted_image_name")
                     .roundTopCorners()

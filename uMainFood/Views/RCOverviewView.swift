@@ -42,8 +42,7 @@ struct RCOverviewView: View {
     var body: some View {
         VStack(spacing: 0) {
             content
-                .padding(.horizontal, RCVConst.overViewPadding)
-                .padding(.vertical)
+                .padding()
                 .background(Rectangle()
                     .cardBackgroundStyle())
             Spacer()
@@ -56,6 +55,7 @@ struct RCOverviewView: View {
             TagsView(activeTags: activeTags, isCompact: true)
             RCDeliveryEstimateView(minutes: deliveryTimeInMinutes)
         }
+        .padding(.leading, RCVConst.overViewPadding)
     }
 }
 
