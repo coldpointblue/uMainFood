@@ -31,6 +31,8 @@ struct DetailCardView: View {
                     .offset(y: -DCConst.picSize.height/5)
             }
         }
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .aspectRatio(DCConst.picSize.width / DCConst.picSize.height, contentMode: .fit)
     }
 }
 
