@@ -32,6 +32,8 @@
 		7271516F2B83B50E00753B66 /* DCOpenOrNotView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7271516E2B83B50E00753B66 /* DCOpenOrNotView.swift */; };
 		727151712B83B5E900753B66 /* DCTitleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 727151702B83B5E900753B66 /* DCTitleView.swift */; };
 		72A319AD2B80D3DD00FC67B8 /* RestaurantCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72A319AC2B80D3DD00FC67B8 /* RestaurantCardView.swift */; };
+		72E8E9222B84236100D459A8 /* DCDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72E8E9212B84236100D459A8 /* DCDetailsView.swift */; };
+		72E8E9242B84237300D459A8 /* DetailCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72E8E9232B84237300D459A8 /* DetailCardView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -80,6 +82,8 @@
 		7271516E2B83B50E00753B66 /* DCOpenOrNotView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DCOpenOrNotView.swift; sourceTree = "<group>"; };
 		727151702B83B5E900753B66 /* DCTitleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DCTitleView.swift; sourceTree = "<group>"; };
 		72A319AC2B80D3DD00FC67B8 /* RestaurantCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestaurantCardView.swift; sourceTree = "<group>"; };
+		72E8E9212B84236100D459A8 /* DCDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DCDetailsView.swift; sourceTree = "<group>"; };
+		72E8E9232B84237300D459A8 /* DetailCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailCardView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -207,6 +211,8 @@
 		727151552B83880300753B66 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				72E8E9232B84237300D459A8 /* DetailCardView.swift */,
+				72E8E9212B84236100D459A8 /* DCDetailsView.swift */,
 				727151702B83B5E900753B66 /* DCTitleView.swift */,
 				7271516E2B83B50E00753B66 /* DCOpenOrNotView.swift */,
 				72A319AC2B80D3DD00FC67B8 /* RestaurantCardView.swift */,
@@ -358,9 +364,11 @@
 				727151572B83895F00753B66 /* ViewUtils.swift in Sources */,
 				72664C202B7E4CFA003505DA /* API.swift in Sources */,
 				727151632B83920900753B66 /* RCDeliveryEstimateView.swift in Sources */,
+				72E8E9222B84236100D459A8 /* DCDetailsView.swift in Sources */,
 				72664C2E2B7E4EF9003505DA /* API.Model.OpenStatus.swift in Sources */,
 				727151672B83969F00753B66 /* RCFoodImageView.swift in Sources */,
 				72664C2A2B7E4EA7003505DA /* API.Model.Restaurant.swift in Sources */,
+				72E8E9242B84237300D459A8 /* DetailCardView.swift in Sources */,
 				72664BF62B7E4C9A003505DA /* uMainFoodApp.swift in Sources */,
 				7271516F2B83B50E00753B66 /* DCOpenOrNotView.swift in Sources */,
 				727151612B838E3600753B66 /* RCHeadlineView.swift in Sources */,
