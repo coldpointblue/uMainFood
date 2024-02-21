@@ -42,6 +42,14 @@ extension Color {
     static let grayDarkerShade = Color.gray.opacity(0.2)
     static let grayLightShadeColor = Color(red: 248/255, green: 248/255, blue: 248/255)
     static let grayPlaceholderShadeColor = Color(red: 161/255, green: 161/255, blue: 161/255)
+    
+    static let darkText = Color("RCDarkText")
+    static let lightText = Color("RCLightText")
+    static let subtitle = Color("RCSubtitle")
+    static let background = Color("RCBackground")
+    static let selected = Color("RCSelected")
+    static let positive = Color("RCPositive")
+    static let negative = Color("RCNegative")
 }
 
 // Reusable card background style
