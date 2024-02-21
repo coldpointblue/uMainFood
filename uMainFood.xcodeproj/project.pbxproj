@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		720431E42B862BA000D2E1DC /* FilterToggleButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 720431E32B862BA000D2E1DC /* FilterToggleButton.swift */; };
 		7262CEF62B8147F2009D1A0C /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 7262CEF42B8147F2009D1A0C /* Localizable.strings */; };
 		72664BF62B7E4C9A003505DA /* uMainFoodApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72664BF52B7E4C9A003505DA /* uMainFoodApp.swift */; };
 		72664BF82B7E4C9A003505DA /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72664BF72B7E4C9A003505DA /* ContentView.swift */; };
@@ -54,6 +55,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		720431E32B862BA000D2E1DC /* FilterToggleButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterToggleButton.swift; sourceTree = "<group>"; };
 		7262CEF52B8147F2009D1A0C /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Localizable.strings; sourceTree = "<group>"; };
 		72664BF22B7E4C9A003505DA /* uMainFood.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = uMainFood.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		72664BF52B7E4C9A003505DA /* uMainFoodApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = uMainFoodApp.swift; sourceTree = "<group>"; };
@@ -211,6 +213,7 @@
 		727151552B83880300753B66 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				720431E32B862BA000D2E1DC /* FilterToggleButton.swift */,
 				72E8E9232B84237300D459A8 /* DetailCardView.swift */,
 				72E8E9212B84236100D459A8 /* DCDetailsView.swift */,
 				727151702B83B5E900753B66 /* DCTitleView.swift */,
@@ -359,6 +362,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				72664C2C2B7E4EB7003505DA /* API.Model.RestaurantsResponse.swift in Sources */,
+				720431E42B862BA000D2E1DC /* FilterToggleButton.swift in Sources */,
 				72664BF82B7E4C9A003505DA /* ContentView.swift in Sources */,
 				727151652B83951100753B66 /* RCOverviewView.swift in Sources */,
 				727151572B83895F00753B66 /* ViewUtils.swift in Sources */,
