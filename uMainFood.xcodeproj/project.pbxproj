@@ -10,7 +10,7 @@
 		720431E42B862BA000D2E1DC /* FilterToggleButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 720431E32B862BA000D2E1DC /* FilterToggleButton.swift */; };
 		7262CEF62B8147F2009D1A0C /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 7262CEF42B8147F2009D1A0C /* Localizable.strings */; };
 		72664BF62B7E4C9A003505DA /* uMainFoodApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72664BF52B7E4C9A003505DA /* uMainFoodApp.swift */; };
-		72664BF82B7E4C9A003505DA /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72664BF72B7E4C9A003505DA /* ContentView.swift */; };
+		72664BF82B7E4C9A003505DA /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72664BF72B7E4C9A003505DA /* HomeView.swift */; };
 		72664BFA2B7E4C9B003505DA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 72664BF92B7E4C9B003505DA /* Assets.xcassets */; };
 		72664BFD2B7E4C9B003505DA /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 72664BFC2B7E4C9B003505DA /* Preview Assets.xcassets */; };
 		72664C072B7E4C9B003505DA /* uMainFoodTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72664C062B7E4C9B003505DA /* uMainFoodTests.swift */; };
@@ -59,7 +59,7 @@
 		7262CEF52B8147F2009D1A0C /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Localizable.strings; sourceTree = "<group>"; };
 		72664BF22B7E4C9A003505DA /* uMainFood.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = uMainFood.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		72664BF52B7E4C9A003505DA /* uMainFoodApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = uMainFoodApp.swift; sourceTree = "<group>"; };
-		72664BF72B7E4C9A003505DA /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		72664BF72B7E4C9A003505DA /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		72664BF92B7E4C9B003505DA /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		72664BFC2B7E4C9B003505DA /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		72664C022B7E4C9B003505DA /* uMainFoodTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = uMainFoodTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -113,6 +113,53 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		720431E52B862D7D00D2E1DC /* Utilities */ = {
+			isa = PBXGroup;
+			children = (
+				727151562B83895F00753B66 /* ViewUtils.swift */,
+			);
+			path = Utilities;
+			sourceTree = "<group>";
+		};
+		720431E62B862DCB00D2E1DC /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				720431E32B862BA000D2E1DC /* FilterToggleButton.swift */,
+			);
+			path = Components;
+			sourceTree = "<group>";
+		};
+		720431E72B862DF600D2E1DC /* Shared */ = {
+			isa = PBXGroup;
+			children = (
+				727151582B838ACE00753B66 /* TagsView.swift */,
+			);
+			path = Shared;
+			sourceTree = "<group>";
+		};
+		720431E82B862E4800D2E1DC /* Subportions */ = {
+			isa = PBXGroup;
+			children = (
+				72E8E9212B84236100D459A8 /* DCDetailsView.swift */,
+				727151702B83B5E900753B66 /* DCTitleView.swift */,
+				7271516E2B83B50E00753B66 /* DCOpenOrNotView.swift */,
+				727151662B83969F00753B66 /* RCFoodImageView.swift */,
+				727151642B83951100753B66 /* RCOverviewView.swift */,
+				727151602B838E3600753B66 /* RCHeadlineView.swift */,
+				7271515C2B838D1C00753B66 /* RCRatingView.swift */,
+				727151622B83920900753B66 /* RCDeliveryEstimateView.swift */,
+			);
+			path = Subportions;
+			sourceTree = "<group>";
+		};
+		720431E92B862FA700D2E1DC /* Screens */ = {
+			isa = PBXGroup;
+			children = (
+				72664BF72B7E4C9A003505DA /* HomeView.swift */,
+			);
+			path = Screens;
+			sourceTree = "<group>";
+		};
 		7262CEF22B81472C009D1A0C /* Localization */ = {
 			isa = PBXGroup;
 			children = (
@@ -153,8 +200,9 @@
 			isa = PBXGroup;
 			children = (
 				72664BF52B7E4C9A003505DA /* uMainFoodApp.swift */,
-				72664BF72B7E4C9A003505DA /* ContentView.swift */,
+				720431E92B862FA700D2E1DC /* Screens */,
 				727151552B83880300753B66 /* Views */,
+				720431E52B862D7D00D2E1DC /* Utilities */,
 				7262CEF22B81472C009D1A0C /* Localization */,
 				72664C212B7E4D33003505DA /* API */,
 				72664BF92B7E4C9B003505DA /* Assets.xcassets */,
@@ -213,19 +261,11 @@
 		727151552B83880300753B66 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				720431E32B862BA000D2E1DC /* FilterToggleButton.swift */,
 				72E8E9232B84237300D459A8 /* DetailCardView.swift */,
-				72E8E9212B84236100D459A8 /* DCDetailsView.swift */,
-				727151702B83B5E900753B66 /* DCTitleView.swift */,
-				7271516E2B83B50E00753B66 /* DCOpenOrNotView.swift */,
 				72A319AC2B80D3DD00FC67B8 /* RestaurantCardView.swift */,
-				727151662B83969F00753B66 /* RCFoodImageView.swift */,
-				727151642B83951100753B66 /* RCOverviewView.swift */,
-				727151602B838E3600753B66 /* RCHeadlineView.swift */,
-				7271515C2B838D1C00753B66 /* RCRatingView.swift */,
-				727151582B838ACE00753B66 /* TagsView.swift */,
-				727151622B83920900753B66 /* RCDeliveryEstimateView.swift */,
-				727151562B83895F00753B66 /* ViewUtils.swift */,
+				720431E82B862E4800D2E1DC /* Subportions */,
+				720431E72B862DF600D2E1DC /* Shared */,
+				720431E62B862DCB00D2E1DC /* Components */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -363,7 +403,7 @@
 			files = (
 				72664C2C2B7E4EB7003505DA /* API.Model.RestaurantsResponse.swift in Sources */,
 				720431E42B862BA000D2E1DC /* FilterToggleButton.swift in Sources */,
-				72664BF82B7E4C9A003505DA /* ContentView.swift in Sources */,
+				72664BF82B7E4C9A003505DA /* HomeView.swift in Sources */,
 				727151652B83951100753B66 /* RCOverviewView.swift in Sources */,
 				727151572B83895F00753B66 /* ViewUtils.swift in Sources */,
 				72664C202B7E4CFA003505DA /* API.swift in Sources */,

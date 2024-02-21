@@ -1,6 +1,6 @@
 //  ----------------------------------------------------
 //
-//  ContentView.swift
+//  HomeView.swift
 //  Version 1.0
 //
 //  Unique ID:  55C5E2E8-3139-487E-930B-DA107E9F384C
@@ -15,13 +15,13 @@
 //  ----------------------------------------------------
 
 //  ----------------------------------------------------
-/*  Goal explanation:  (whole app does? … for users)   */
+/*  Goal explanation:  Home screen for Food app   */
 //  ----------------------------------------------------
 
 
 import SwiftUI
 
-struct ContentView: View {
+struct HomeView: View {
     var body: some View {
         VStack {
             Image(systemName: "globe")
@@ -34,5 +34,5 @@ struct ContentView: View {
 }
 
 #Preview {
-    ContentView()
+    HomeView()
 }

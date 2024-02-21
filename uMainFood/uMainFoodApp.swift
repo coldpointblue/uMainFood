@@ -25,7 +25,7 @@ import SwiftUI
 struct uMainFoodApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            HomeView()
         }
     }
 }
