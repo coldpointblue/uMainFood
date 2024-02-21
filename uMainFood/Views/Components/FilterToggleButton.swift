@@ -76,9 +76,13 @@ struct FilterToggleButton<Icon: View>: View {
 // Example Usage with BlankIcon
 struct BlankIcon: View {
     var body: some View {
-        Image(systemName: "circle.slash")
-            .resizable()
-            .aspectRatio(contentMode: .fit)
+        ZStack {
+            Image(systemName: "circle.dashed")
+                .resizable()
+                .aspectRatio(contentMode: .fit)
+            Image(systemName: "icloud.slash")
+                .imageScale(.large)
+        }
     }
 }
 
