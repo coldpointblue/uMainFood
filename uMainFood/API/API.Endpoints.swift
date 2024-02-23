@@ -35,7 +35,7 @@ enum APIEndpoint {
         case .restaurants:
             return "restaurants"
         case .filter(let id):
-            return "filter/\(id)"
+            return "filter/\(id.uuidString.lowercased())"
         case .openStatus(let restaurantId):
             return "open/\(restaurantId)"
         }
