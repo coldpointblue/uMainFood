@@ -190,6 +190,13 @@ extension RestaurantListViewModel {
     }
 }
 
+extension RestaurantListViewModel {
+    func updateUIAfterFetching() {
+        updateFilterToRestaurantsMap()
+        applyFilters()
+    }
+}
+
 struct UserNotification: Identifiable {
     var id = UUID()
     var title: String
