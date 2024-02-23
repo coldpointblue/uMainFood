@@ -63,7 +63,9 @@ class RestaurantListViewModel: ObservableObject {
             }
             .flatMap { [unowned self] response -> AnyPublisher<[API.Model.Filter], NetworkError> in
                 self.allRestaurants = response.restaurants
-                let uniqueFilterIds = Set(response.restaurants.flatMap { $0.filterIds })
+                let uniqueFilterIds = Set(response.restaurants
+                    .flatMap { $0.filterIds })
+                self.updateUIAfterFetching()
                 return Publishers.MergeMany(uniqueFilterIds.map {
                     self.networkService.fetchFilter(by: $0)
                 })
@@ -83,8 +85,6 @@ class RestaurantListViewModel: ObservableObject {
             }, receiveValue: { [weak self] filters in
                 guard let self = self else { return }
                 self.filters = filters
-                self.updateUIAfterFetching()
-                
                 self.fetchImagesForFilters(filters)
             })
             .store(in: &subscriptions)
