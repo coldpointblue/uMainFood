@@ -117,6 +117,7 @@ class RestaurantListViewModel: ObservableObject {
     private func fetchImagesForFilters(_ filters: [API.Model.Filter]) {
         filters.forEach { filter in
             networkService.fetchImage(from: filter.imageUrl)
+                .receive(on: DispatchQueue.main)
                 .sink(receiveCompletion: { [weak self] completion in
                     if case .failure(let error) = completion {
                         self?.errorMessage = error.localizedDescription
