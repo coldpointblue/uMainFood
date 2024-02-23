@@ -1,22 +1,4 @@
-//  ----------------------------------------------------
-//
-//  uMainFoodTests.swift
-//  Version 1.0
-//
-//  Unique ID:  E47539F7-12B8-4678-8BE3-B2635A19FE35
-//
-//  part of the uMainFoodTests™ product.
-//
-//  Written in Swift 5.0 on macOS 14.3
-//
-//  https://github.com/coldpointblue
-//  Created by Hugo Diaz on 2024-02-15.
-//  
-//  ----------------------------------------------------
-
-//  ----------------------------------------------------
 /*  Goal explanation:  (whole app does? … for users)   */
-//  ----------------------------------------------------
 
 
 import XCTest

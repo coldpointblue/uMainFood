@@ -1,22 +1,4 @@
-//  ----------------------------------------------------
-//
-//  RCOverviewView.swift
-//  Version 1.0
-//
-//  Unique ID:  783B1EFF-09D9-410A-B8D9-E1D3C515F2D0
-//
-//  part of the uMainFood™ product.
-//
-//  Written in Swift 5.0 on macOS 14.3
-//
-//  https://github.com/coldpointblue
-//  Created by Hugo Diaz on 2024-02-19.
-//
-//  ----------------------------------------------------
-
-//  ----------------------------------------------------
 /*  Goal explanation:  View restaurant overview info at a glance   */
-//  ----------------------------------------------------
 
 
 import SwiftUI

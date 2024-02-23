@@ -1,22 +1,4 @@
-//  ----------------------------------------------------
-//
-//  NetworkService.swift
-//  Version 1.0
-//
-//  Unique ID:  8613B3F9-0505-4E90-94B4-487E13A90C03
-//
-//  part of the uMainFood™ product.
-//
-//  Written in Swift 5.0 on macOS 14.3
-//
-//  https://github.com/coldpointblue
-//  Created by Hugo Diaz on 2024-02-23.
-//
-//  ----------------------------------------------------
-
-//  ----------------------------------------------------
 /*  Goal explanation:  Network Service to load web data   */
-//  ----------------------------------------------------
 
 
 import Combine

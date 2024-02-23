@@ -1,22 +1,4 @@
-//  ----------------------------------------------------
-//
-//  RestaurantDetailView.swift
-//  Version 1.0
-//
-//  Unique ID:  0AA71E84-895B-4A45-A24D-0A9B6751C393
-//
-//  part of the uMainFood™ product.
-//
-//  Written in Swift 5.0 on macOS 14.3
-//
-//  https://github.com/coldpointblue
-//  Created by Hugo Diaz on 2024-02-23.
-//
-//  ----------------------------------------------------
-
-//  ----------------------------------------------------
 /*  Goal explanation:  Display Details specific to one Restaurant   */
-//  ----------------------------------------------------
 
 
 import SwiftUI

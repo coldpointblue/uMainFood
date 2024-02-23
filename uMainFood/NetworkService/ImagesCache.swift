@@ -1,22 +1,4 @@
-//  ----------------------------------------------------
-//
-//  ImagesCache.swift
-//  Version 1.0
-//
-//  Unique ID:  DD5B214A-A8EA-43A2-8587-58E9B6E17E27
-//
-//  part of the uMainFood™ product.
-//
-//  Written in Swift 5.0 on macOS 14.3
-//
-//  https://github.com/coldpointblue
-//  Created by Hugo Diaz on 2024-02-23.
-//
-//  ----------------------------------------------------
-
-//  ----------------------------------------------------
 /*  Goal explanation:  Images cache with network fetch   */
-//  ----------------------------------------------------
 
 
 import SwiftUI

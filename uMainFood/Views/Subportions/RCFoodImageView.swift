@@ -1,22 +1,4 @@
-//  ----------------------------------------------------
-//
-//  RCFoodImageView.swift
-//  Version 1.0
-//
-//  Unique ID:  26254467-E3C9-4440-9F2B-63FC3347D0AA
-//
-//  part of the uMainFood™ product.
-//
-//  Written in Swift 5.0 on macOS 14.3
-//
-//  https://github.com/coldpointblue
-//  Created by Hugo Diaz on 2024-02-19.
-//
-//  ----------------------------------------------------
-
-//  ----------------------------------------------------
 /*  Goal explanation:  View with image of food from specific restaurant   */
-//  ----------------------------------------------------
 
 
 import SwiftUI

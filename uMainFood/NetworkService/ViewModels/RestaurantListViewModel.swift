@@ -1,22 +1,4 @@
-//  ----------------------------------------------------
-//
-//  RestaurantListViewModel.swift
-//  Version 1.0
-//
-//  Unique ID:  CFB01AC8-CEA4-4172-A998-FEF419EB14DC
-//
-//  part of the uMainFood™ product.
-//
-//  Written in Swift 5.0 on macOS 14.3
-//
-//  https://github.com/coldpointblue
-//  Created by Hugo Diaz on 2024-02-23.
-//
-//  ----------------------------------------------------
-
-//  ----------------------------------------------------
 /*  Goal explanation:  Dynamic Restaurant List UI   */
-//  ----------------------------------------------------
 
 
 import Combine

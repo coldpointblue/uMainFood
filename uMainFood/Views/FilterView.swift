@@ -1,22 +1,4 @@
-//  ----------------------------------------------------
-//
-//  FilterView.swift
-//  Version 1.0
-//
-//  Unique ID:  461D00D3-A61B-4F6C-96AF-C57EB9A74462
-//
-//  part of the uMainFood™ product.
-//
-//  Written in Swift 5.0 on macOS 14.3
-//
-//  https://github.com/coldpointblue
-//  Created by Hugo Diaz on 2024-02-23.
-//  
-//  ----------------------------------------------------
-
-//  ----------------------------------------------------
 /*  Goal explanation:  Row of Filters for Restaurants   */
-//  ----------------------------------------------------
 
 
 import SwiftUI

@@ -1,22 +1,4 @@
-//  ----------------------------------------------------
-//
-//  RestaurantCardView.swift
-//  Version 1.0
-//
-//  Unique ID:  968BD13F-A39A-4F94-BC9A-6EA3410EDA99
-//
-//  part of the uMainFood™ product.
-//
-//  Written in Swift 5.0 on macOS 14.3
-//
-//  https://github.com/coldpointblue
-//  Created by Hugo Diaz on 2024-02-17.
-//
-//  ----------------------------------------------------
-
-//  ----------------------------------------------------
 /*  Goal explanation:  View the Restaurant Card overview info   */
-//  ----------------------------------------------------
 
 
 import SwiftUI

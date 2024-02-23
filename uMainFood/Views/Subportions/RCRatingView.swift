@@ -1,22 +1,4 @@
-//  ----------------------------------------------------
-//
-//  RCRatingView.swift
-//  Version 1.0
-//
-//  Unique ID:  6CBF4240-9A5B-4275-B657-13EA3241B522
-//
-//  part of the uMainFood™ product.
-//
-//  Written in Swift 5.0 on macOS 14.3
-//
-//  https://github.com/coldpointblue
-//  Created by Hugo Diaz on 2024-02-19.
-//
-//  ----------------------------------------------------
-
-//  ----------------------------------------------------
 /*  Goal explanation:  View restaurant rating in stars from 0.0 to 5.0   */
-//  ----------------------------------------------------
 
 
 import SwiftUI

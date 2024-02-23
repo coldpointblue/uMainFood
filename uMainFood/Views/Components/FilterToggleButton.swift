@@ -1,22 +1,4 @@
-//  ----------------------------------------------------
-//
-//  FilterToggleButton.swift
-//  Version 1.0
-//
-//  Unique ID:  A74FA0D5-F530-4DF0-8734-12B2F58B063C
-//
-//  part of the uMainFood™ product.
-//
-//  Written in Swift 5.0 on macOS 14.3
-//
-//  https://github.com/coldpointblue
-//  Created by Hugo Diaz on 2024-02-21.
-//  
-//  ----------------------------------------------------
-
-//  ----------------------------------------------------
 /*  Goal explanation:  Filter toggle button with customizable icon and visual feedback   */
-//  ----------------------------------------------------
 
 
 import SwiftUI

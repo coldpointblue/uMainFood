@@ -1,22 +1,4 @@
-//  ----------------------------------------------------
-//
-//  ViewUtils.swift
-//  Version 1.0
-//
-//  Unique ID:  ED44EB65-7F49-47F1-AAC2-0AB5904565A0
-//
-//  part of the uMainFood™ product.
-//
-//  Written in Swift 5.0 on macOS 14.3
-//
-//  https://github.com/coldpointblue
-//  Created by Hugo Diaz on 2024-02-19.
-//
-//  ----------------------------------------------------
-
-//  ----------------------------------------------------
 /*  Goal explanation:  Utilities to enhance views   */
-//  ----------------------------------------------------
 
 
 import SwiftUI
