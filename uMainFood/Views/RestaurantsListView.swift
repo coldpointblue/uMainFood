@@ -35,8 +35,10 @@ struct RestaurantsListView: View {
                 if viewModel.isLoading {
                     SkeletonRestaurantRowView()
                 } else {
-                    RestaurantRow(restaurant: restaurant)
-                        .userAlert(item: $viewModel.notification)
+                    NavigationLink(destination: RestaurantDetailView(restaurant: restaurant)) {
+                        RestaurantRowView(restaurant: restaurant)
+                            .userAlert(item: $viewModel.notification)
+                    }
                 }
             }
             .refreshable {
