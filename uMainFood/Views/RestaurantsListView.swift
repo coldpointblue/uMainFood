@@ -30,8 +30,7 @@ struct RestaurantsListView: View {
     
     var body: some View {
         VStack {
-            FilterView(selectedFilterIds: $viewModel.selectedFilterIds, filters: viewModel.filters)
-            
+            FilterView(selectedFilterIds: $viewModel.selectedFilterIds, filters: $viewModel.filters)
             List(restaurantsToDisplay, id: \.id) { restaurant in
                 if viewModel.isLoading {
                     SkeletonRestaurantRowView()
