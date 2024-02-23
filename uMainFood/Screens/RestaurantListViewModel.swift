@@ -46,9 +46,17 @@ class RestaurantListViewModel: ObservableObject {
     @Published var notification: UserNotification?
     
     func fetchRestaurantsAndFilters() {
+        guard !isLoading else { return }
+        
         isLoading = true
         
+        allRestaurants = []
+        filters = []
+        
+        selectedFilterIds.removeAll()
+        
         networkService.fetchRestaurants()
+            .receive(on: DispatchQueue.main)
             .catch { [weak self] error -> Empty<API.Model.RestaurantsResponse, Never> in
                 self?.handleCustomError(error)
                 return Empty(completeImmediately: true)
@@ -62,7 +70,6 @@ class RestaurantListViewModel: ObservableObject {
                 .collect()
                 .eraseToAnyPublisher()
             }
-            .receive(on: DispatchQueue.main)
             .sink(receiveCompletion: { [weak self] completion in
                 self?.isLoading = false
                 switch completion {
@@ -74,10 +81,11 @@ class RestaurantListViewModel: ObservableObject {
                     self?.handleCustomError(error)
                 }
             }, receiveValue: { [weak self] filters in
-                self?.filters = filters
-                self?.updateFilterToRestaurantsMap()
+                guard let self = self else { return }
+                self.filters = filters
+                self.updateUIAfterFetching()
                 
-                self?.fetchImagesForFilters(filters)
+                self.fetchImagesForFilters(filters)
             })
             .store(in: &subscriptions)
     }
