@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		720431E42B862BA000D2E1DC /* FilterToggleButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 720431E32B862BA000D2E1DC /* FilterToggleButton.swift */; };
+		7204D1D12B88EFF800800154 /* RestaurantDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7204D1D02B88EFF800800154 /* RestaurantDetailView.swift */; };
 		724719892B8843B500531910 /* NetworkErrors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 724719882B8843B500531910 /* NetworkErrors.swift */; };
 		7247198B2B88448B00531910 /* ImagesCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7247198A2B88448B00531910 /* ImagesCache.swift */; };
 		7247198D2B8844F400531910 /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7247198C2B8844F400531910 /* NetworkService.swift */; };
@@ -66,6 +67,7 @@
 
 /* Begin PBXFileReference section */
 		720431E32B862BA000D2E1DC /* FilterToggleButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterToggleButton.swift; sourceTree = "<group>"; };
+		7204D1D02B88EFF800800154 /* RestaurantDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestaurantDetailView.swift; sourceTree = "<group>"; };
 		724719882B8843B500531910 /* NetworkErrors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = NetworkErrors.swift; path = uMainFood/NetworkService/NetworkErrors.swift; sourceTree = SOURCE_ROOT; };
 		7247198A2B88448B00531910 /* ImagesCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ImagesCache.swift; path = uMainFood/NetworkService/ImagesCache.swift; sourceTree = SOURCE_ROOT; };
 		7247198C2B8844F400531910 /* NetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
@@ -176,6 +178,7 @@
 			isa = PBXGroup;
 			children = (
 				72664BF72B7E4C9A003505DA /* HomeView.swift */,
+				7204D1D02B88EFF800800154 /* RestaurantDetailView.swift */,
 			);
 			path = Screens;
 			sourceTree = "<group>";
@@ -463,6 +466,7 @@
 				727151672B83969F00753B66 /* RCFoodImageView.swift in Sources */,
 				7289B9AE2B87662D0017364B /* API.Endpoints.swift in Sources */,
 				72664C2A2B7E4EA7003505DA /* API.Model.Restaurant.swift in Sources */,
+				7204D1D12B88EFF800800154 /* RestaurantDetailView.swift in Sources */,
 				72E8E9242B84237300D459A8 /* DetailCardView.swift in Sources */,
 				72664BF62B7E4C9A003505DA /* uMainFoodApp.swift in Sources */,
 				7271516F2B83B50E00753B66 /* DCOpenOrNotView.swift in Sources */,
