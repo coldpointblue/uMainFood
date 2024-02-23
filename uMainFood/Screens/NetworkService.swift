@@ -148,26 +148,3 @@ extension NetworkService {
         .eraseToAnyPublisher()
     }
 }
-
-extension NetworkService {
-    func fetchUniqueFilters(from restaurants: [API.Model.Restaurant]) -> AnyPublisher<[API.Model.Filter], NetworkError> {
-        let uniqueFilterIds = Set(restaurants.flatMap { $0.filterIds })
-        return uniqueFilterIds
-            .map { fetchFilter(by: $0) }
-            .publisher
-            .flatMap(maxPublishers: .max(11)) { $0 } // limiting cocurrent requests
-            .collect()
-            .mapError(NetworkError.map)
-            .eraseToAnyPublisher()
-    }
-}
-
-extension NetworkService {
-    func fetchFiltersInBatch(ids: [UUID]) -> AnyPublisher<[API.Model.Filter], NetworkError> {
-        let publishers = ids.map { fetchFilter(by: $0) }
-        return Publishers.MergeMany(publishers)
-            .collect()
-            .mapError(NetworkError.map)
-            .eraseToAnyPublisher()
-    }
-}
