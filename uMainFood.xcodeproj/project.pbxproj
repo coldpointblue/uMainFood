@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		720431E42B862BA000D2E1DC /* FilterToggleButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 720431E32B862BA000D2E1DC /* FilterToggleButton.swift */; };
 		724719892B8843B500531910 /* NetworkErrors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 724719882B8843B500531910 /* NetworkErrors.swift */; };
+		7247198B2B88448B00531910 /* ImagesCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7247198A2B88448B00531910 /* ImagesCache.swift */; };
+		7247198D2B8844F400531910 /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7247198C2B8844F400531910 /* NetworkService.swift */; };
 		7262CEF62B8147F2009D1A0C /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 7262CEF42B8147F2009D1A0C /* Localizable.strings */; };
 		72664BF62B7E4C9A003505DA /* uMainFoodApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72664BF52B7E4C9A003505DA /* uMainFoodApp.swift */; };
 		72664BF82B7E4C9A003505DA /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72664BF72B7E4C9A003505DA /* HomeView.swift */; };
@@ -59,6 +61,8 @@
 /* Begin PBXFileReference section */
 		720431E32B862BA000D2E1DC /* FilterToggleButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterToggleButton.swift; sourceTree = "<group>"; };
 		724719882B8843B500531910 /* NetworkErrors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = NetworkErrors.swift; path = uMainFood/NetworkErrors.swift; sourceTree = SOURCE_ROOT; };
+		7247198A2B88448B00531910 /* ImagesCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ImagesCache.swift; path = uMainFood/ImagesCache.swift; sourceTree = SOURCE_ROOT; };
+		7247198C2B8844F400531910 /* NetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
 		7262CEF52B8147F2009D1A0C /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Localizable.strings; sourceTree = "<group>"; };
 		72664BF22B7E4C9A003505DA /* uMainFood.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = uMainFood.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		72664BF52B7E4C9A003505DA /* uMainFoodApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = uMainFoodApp.swift; sourceTree = "<group>"; };
@@ -160,7 +164,9 @@
 			isa = PBXGroup;
 			children = (
 				72664BF72B7E4C9A003505DA /* HomeView.swift */,
+				7247198C2B8844F400531910 /* NetworkService.swift */,
 				724719882B8843B500531910 /* NetworkErrors.swift */,
+				7247198A2B88448B00531910 /* ImagesCache.swift */,
 			);
 			path = Screens;
 			sourceTree = "<group>";
@@ -425,11 +431,13 @@
 				7271516F2B83B50E00753B66 /* DCOpenOrNotView.swift in Sources */,
 				727151612B838E3600753B66 /* RCHeadlineView.swift in Sources */,
 				72664C262B7E4E28003505DA /* API.Model.Error.swift in Sources */,
+				7247198B2B88448B00531910 /* ImagesCache.swift in Sources */,
 				72664C282B7E4E80003505DA /* API.Model.Filter.swift in Sources */,
 				72A319AD2B80D3DD00FC67B8 /* RestaurantCardView.swift in Sources */,
 				727151712B83B5E900753B66 /* DCTitleView.swift in Sources */,
 				72664C242B7E4DA4003505DA /* API.Model.swift in Sources */,
 				727151592B838ACE00753B66 /* TagsView.swift in Sources */,
+				7247198D2B8844F400531910 /* NetworkService.swift in Sources */,
 				7271515D2B838D1C00753B66 /* RCRatingView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
