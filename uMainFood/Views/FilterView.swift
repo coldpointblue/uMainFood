@@ -28,7 +28,7 @@ struct FilterView: View {
     var body: some View {
         ScrollView(.horizontal, showsIndicators: false) {
             HStack {
-                ForEach(filters, id: \.id) { filter in
+                ForEach(filters, id: \.self) { filter in
                     Button(action: {
                         selectedFilterIds.formSymmetricDifference([filter.id])
                     }) {

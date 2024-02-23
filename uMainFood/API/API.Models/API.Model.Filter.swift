@@ -23,7 +23,7 @@ import Foundation
 
 // Filter Model
 extension API.Model {
-    struct Filter: Codable {
+    struct Filter: Codable, Hashable {
         let id: UUID
         let name: String
         let imageUrl: String // Adjusted naming convention to camelCase for Swift
