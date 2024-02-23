@@ -91,17 +91,26 @@ class RestaurantListViewModel: ObservableObject {
     }
     
     private func updateFilterToRestaurantsMap() {
+        // Was simpler but I am debugging async network filters
         filterToRestaurantsMap.removeAll()
         
-        for filter in filters {
+        var allFilterUUIDs = Set<UUID>()
+        for restaurant in allRestaurants {
+            allFilterUUIDs.formUnion(restaurant.filterIds)
+        }
+        
+        for filterUUID in allFilterUUIDs {
             var restaurantIdsForFilter = Set<String>()
             
             for restaurant in allRestaurants {
-                if restaurant.filterIds.contains(filter.id) {
+                if restaurant.filterIds.contains(filterUUID) {
                     restaurantIdsForFilter.insert(restaurant.id)
                 }
             }
-            filterToRestaurantsMap[filter.id] = restaurantIdsForFilter
+            DispatchQueue.main.async {
+                // Update dictionary UUID Keys with new Sets
+                self.filterToRestaurantsMap[filterUUID] = restaurantIdsForFilter
+            }
         }
     }
     
