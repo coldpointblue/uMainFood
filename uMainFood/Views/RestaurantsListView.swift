@@ -41,7 +41,7 @@ struct RestaurantsListView: View {
                 }
             }
             .refreshable {
-                viewModel.fetchRestaurantsAndFilters()
+                // viewModel.fetchRestaurantsAndFilters()
             }
             .userAlert(item: $viewModel.notification)
         }
