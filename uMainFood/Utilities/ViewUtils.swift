@@ -123,3 +123,15 @@ struct TimeIntoWordsFormatter {
         NSLocalizedString(key, comment: "")
     }
 }
+
+extension View {
+    func userAlert(item: Binding<UserNotification?>) -> some View {
+        self.alert(item: item) { notification in
+            Alert(
+                title: Text(notification.title),
+                message: Text(notification.message),
+                dismissButton: .default(Text("OK"))
+            )
+        }
+    }
+}
