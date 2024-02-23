@@ -34,6 +34,7 @@ struct AsyncImageView: View {
             } else if loader.isError {
                 Image(uiImage: placeholder)
                     .resizable()
+                    .scaledToFit()
             } else {
                 ProgressView()
             }
