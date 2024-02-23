@@ -137,12 +137,16 @@ class RestaurantListViewModel: ObservableObject {
             return
         }
         
-        let matchingRestaurantIds: Set<String> = selectedFilterIds
-            .compactMap { filterToRestaurantsMap[$0] }
-            .reduce(Set<String>()) { $0.union($1) }
+        var combinedRestaurantIds: Set<String> = []
+        
+        for filterId in selectedFilterIds {
+            if let restaurantIds = filterToRestaurantsMap[filterId] {
+                combinedRestaurantIds.formUnion(restaurantIds)
+            }
+        }
         
         filteredRestaurants = allRestaurants.filter { restaurant in
-            matchingRestaurantIds.contains(restaurant.id)
+            combinedRestaurantIds.contains(restaurant.id)
         }
     }
     
