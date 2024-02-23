@@ -155,7 +155,7 @@ extension NetworkService {
         return uniqueFilterIds
             .map { fetchFilter(by: $0) }
             .publisher
-            .flatMap(maxPublishers: .max(3)) { $0 } // limiting cocurrent requests
+            .flatMap(maxPublishers: .max(11)) { $0 } // limiting cocurrent requests
             .collect()
             .mapError(NetworkError.map)
             .eraseToAnyPublisher()
