@@ -150,21 +150,6 @@ class RestaurantListViewModel: ObservableObject {
         }
     }
     
-    func fetchRestaurants() {
-        networkService.fetchRestaurants()
-            .sink(receiveCompletion: { [weak self] completion in
-                switch completion {
-                case .finished:
-                    break
-                case .failure(let error):
-                    self?.handleCustomError(error)
-                }
-            }, receiveValue: { [weak self] restaurantsResponse in
-                self?.allRestaurants = restaurantsResponse.restaurants
-            })
-            .store(in: &subscriptions)
-    }
-    
     func toggleFilter(_ filterId: UUID) {
         if selectedFilterIds.contains(filterId) {
             selectedFilterIds.remove(filterId)
