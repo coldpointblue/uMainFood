@@ -27,7 +27,9 @@ class RestaurantListViewModel: ObservableObject {
     @Published var filters: [API.Model.Filter] = []
     @Published var selectedFilterIds = Set<UUID>() {
         didSet {
-            applyFilters()
+            DispatchQueue.main.async {
+                self.applyFilters()
+            }
         }
     }
     @Published var filterImages: [UUID: UIImage] = [:]
