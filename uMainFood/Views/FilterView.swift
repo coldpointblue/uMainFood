@@ -43,3 +43,16 @@ struct FilterView: View {
         }
     }
 }
+
+struct FilterView_Previews: PreviewProvider {
+    static var previews: some View {
+        let filters: [API.Model.Filter] = [
+            API.Model.Filter(id: UUID(), name: "PrettyFilter", imageUrl: ""),
+            API.Model.Filter(id: UUID(), name: "TastyFilter", imageUrl: ""),
+            API.Model.Filter(id: UUID(), name: "OvernightFilter", imageUrl: "")
+        ]
+        let selectedFilterIds: Binding<Set<UUID>> = .constant([])
+        
+        return FilterView(selectedFilterIds: selectedFilterIds, filters: filters)
+    }
+}
