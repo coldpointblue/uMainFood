@@ -48,7 +48,7 @@ class RestaurantListViewModel: ObservableObject {
         
         networkService.fetchRestaurants()
             .catch { [weak self] error -> Empty<API.Model.RestaurantsResponse, Never> in
-                self?.handleError(error)
+                self?.handleCustomError(error)
                 return Empty(completeImmediately: true)
             }
             .flatMap { [unowned self] response -> AnyPublisher<[API.Model.Filter], NetworkError> in
@@ -69,7 +69,7 @@ class RestaurantListViewModel: ObservableObject {
                 case .failure(let error):
                     self?.errorMessage = error.localizedDescription
                     self?.showAlert = true
-                    self?.handleError(error)
+                    self?.handleCustomError(error)
                 }
             }, receiveValue: { [weak self] filters in
                 self?.filters = filters
@@ -133,7 +133,7 @@ class RestaurantListViewModel: ObservableObject {
                 case .finished:
                     break
                 case .failure(let error):
-                    self?.handleError(error)
+                    self?.handleCustomError(error)
                 }
             }, receiveValue: { [weak self] restaurantsResponse in
                 self?.allRestaurants = restaurantsResponse.restaurants
@@ -151,7 +151,7 @@ class RestaurantListViewModel: ObservableObject {
 }
 
 extension RestaurantListViewModel {
-    private func handleError(_ error: Error) {
+    private func handleCustomError(_ error: Error) {
         DispatchQueue.main.async {
             let message: String
             if let networkError = error as? NetworkError {
