@@ -117,3 +117,21 @@ extension View {
         }
     }
 }
+
+// Default images
+extension Image {
+    static func missingWebData() -> any View {
+        Image(systemName: "icloud.slash")
+            .imageScale(.large)
+    }
+}
+
+extension UIImage {
+    static func missingWebData() -> UIImage {
+        UIImage(systemName: "icloud.slash") ?? UIImage()
+    }
+    
+    static func loadingPhoto() -> UIImage {
+        UIImage(systemName: "photo") ?? UIImage()
+    }
+}

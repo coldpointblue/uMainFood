@@ -10,7 +10,7 @@ struct RestaurantDetailView: View {
         VStack(alignment: .leading, spacing: 20) {
             AsyncImageView(
                 urlString: restaurant.imageUrl,
-                placeholder: UIImage(systemName: "photo") ?? UIImage()
+                placeholder: UIImage.loadingPhoto()
             )
             .aspectRatio(contentMode: .fit)
             

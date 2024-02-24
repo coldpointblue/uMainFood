@@ -10,7 +10,7 @@ struct RestaurantRowView: View {
         HStack(spacing: 16) {
             AsyncImageView(
                 urlString: restaurant.imageUrl,
-                placeholder: UIImage(systemName: "photo") ?? UIImage()
+                placeholder: UIImage.loadingPhoto()
             )
             .frame(width: 50, height: 50)
             .background(Color.gray.opacity(0.3))
