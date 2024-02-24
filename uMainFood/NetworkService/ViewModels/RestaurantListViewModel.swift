@@ -74,8 +74,14 @@ class RestaurantListViewModel: ObservableObject {
         }
         
         Publishers.MergeMany(imageFetchPublishers)
-            .sink(receiveCompletion: { _ in },
-                  receiveValue: { [weak self] id, image in
+            .sink(receiveCompletion: { [weak self] completion in
+                switch completion {
+                case .finished:
+                    break
+                case .failure(let error):
+                    self?.handleCustomError(error)
+                }
+            }, receiveValue: { [weak self] id, image in
                 self?.filterImages[id] = image
             })
             .store(in: &subscriptions)
@@ -140,7 +146,7 @@ extension RestaurantListViewModel {
 }
 
 extension RestaurantListViewModel {
-    func updateUIAfterFetching() {
+    @MainActor func updateUIAfterFetching() {
         updateFilterToRestaurantsMap()
         applyFilters()
     }
@@ -160,7 +166,6 @@ extension RestaurantListViewModel {
         resetData()
         
         let restaurantPublisher = networkService.fetchRestaurants()
-            .receive(on: DispatchQueue.main)
             .catch { [weak self] error -> Empty<API.Model.RestaurantsResponse, Never> in
                 self?.handleCustomError(error)
                 return Empty(completeImmediately: true)
@@ -168,14 +173,25 @@ extension RestaurantListViewModel {
         
         restaurantPublisher
             .flatMap { [weak self] response -> AnyPublisher<[API.Model.Filter], Never> in
-                guard let self = self else { return Empty().eraseToAnyPublisher() }
+                guard let self = self else {
+                    return Empty().eraseToAnyPublisher()
+                }
                 self.allRestaurants = response.restaurants
                 return self.fetchFilters(for: response.restaurants)
             }
+            .receive(on: DispatchQueue.main)
             .sink(receiveCompletion: { [weak self] completion in
                 self?.processCompletion(completion)
             }, receiveValue: { [weak self] filters in
-                self?.processFilters(filters)
+                guard let self = self else { return }
+                let filters: [API.Model.Filter] = filters
+                
+                fetchImagesForFilters(filters)
+                
+                DispatchQueue.main.async {
+                    self.filters = filters
+                    self.updateUIAfterFetching()
+                }
             })
             .store(in: &subscriptions)
     }
@@ -188,13 +204,16 @@ extension RestaurantListViewModel {
     
     private func fetchFilters(for restaurants: [API.Model.Restaurant]) -> AnyPublisher<[API.Model.Filter], Never> {
         let uniqueFilterIds = Set(restaurants.flatMap { $0.filterIds })
-        let filterPublishers = uniqueFilterIds.map { networkService.fetchFilter(by: $0) }
+        let filterPublishers = uniqueFilterIds.map { networkService.fetchFilter(by: $0)
+        }
+        
         return Publishers.MergeMany(filterPublishers)
             .collect()
             .catch { [weak self] error -> Just<[API.Model.Filter]> in
                 self?.handleCustomError(error)
                 return Just([])
             }
+            .receive(on: DispatchQueue.main)
             .eraseToAnyPublisher()
     }
     
@@ -206,11 +225,5 @@ extension RestaurantListViewModel {
             errorMessage = error.localizedDescription
             handleCustomError(error)
         }
-    }
-    
-    private func processFilters(_ filters: [API.Model.Filter]) {
-        self.filters = filters
-        fetchImagesForFilters(filters)
-        updateUIAfterFetching()
     }
 }
