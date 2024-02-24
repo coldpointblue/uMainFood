@@ -15,8 +15,7 @@ class RestaurantListViewModel: ObservableObject {
         }
     }
     @Published var filterImages: [UUID: UIImage] = [:]
-    @Published var isLoading = false
-    @Published var showAlert = false
+    @Published var isRefreshingData = false
     @Published var errorMessage: String?
     
     @Published var filteredRestaurants: [API.Model.Restaurant] = []
@@ -27,49 +26,11 @@ class RestaurantListViewModel: ObservableObject {
     
     @Published var notification: UserNotification?
     
-    func fetchRestaurantsAndFilters() {
-        guard !isLoading else { return }
-        
-        isLoading = true
-        
-        allRestaurants = []
-        filters = []
-        
-        selectedFilterIds.removeAll()
-        
-        networkService.fetchRestaurants()
-            .receive(on: DispatchQueue.main)
-            .catch { [weak self] error -> Empty<API.Model.RestaurantsResponse, Never> in
-                self?.handleCustomError(error)
-                return Empty(completeImmediately: true)
-            }
-            .flatMap { [unowned self] response -> AnyPublisher<[API.Model.Filter], NetworkError> in
-                self.allRestaurants = response.restaurants
-                let uniqueFilterIds = Set(response.restaurants
-                    .flatMap { $0.filterIds })
-                self.updateUIAfterFetching()
-                return Publishers.MergeMany(uniqueFilterIds.map {
-                    self.networkService.fetchFilter(by: $0)
-                })
-                .collect()
-                .eraseToAnyPublisher()
-            }
-            .sink(receiveCompletion: { [weak self] completion in
-                self?.isLoading = false
-                switch completion {
-                case .finished:
-                    break
-                case .failure(let error):
-                    self?.errorMessage = error.localizedDescription
-                    self?.showAlert = true
-                    self?.handleCustomError(error)
-                }
-            }, receiveValue: { [weak self] filters in
-                guard let self = self else { return }
-                self.filters = filters
-                self.fetchImagesForFilters(filters)
-            })
-            .store(in: &subscriptions)
+    private var hasLoadedInitialData = false
+    
+    func refreshData() {
+        hasLoadedInitialData = false
+        fetchRestaurantsAndFilters()
     }
     
     private func updateFilterToRestaurantsMap() {

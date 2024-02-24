@@ -14,7 +14,7 @@ struct RestaurantsListView: View {
         VStack {
             FilterView(selectedFilterIds: $viewModel.selectedFilterIds, filters: $viewModel.filters)
             List(restaurantsToDisplay, id: \.id) { restaurant in
-                if viewModel.isLoading {
+                if viewModel.isRefreshingData {
                     SkeletonRestaurantRowView()
                 } else {
                     NavigationLink(destination: RestaurantDetailView(restaurant: restaurant)) {
@@ -24,7 +24,7 @@ struct RestaurantsListView: View {
                 }
             }
             .refreshable {
-                // viewModel.fetchRestaurantsAndFilters()
+                viewModel.refreshData()
             }
             .userAlert(trigger: $viewModel.notification)
         }
