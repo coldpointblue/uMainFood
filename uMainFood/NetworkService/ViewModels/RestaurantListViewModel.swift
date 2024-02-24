@@ -103,7 +103,7 @@ class RestaurantListViewModel: ObservableObject {
                 .sink(receiveCompletion: { [weak self] completion in
                     if case .failure(let error) = completion {
                         self?.errorMessage = error.localizedDescription
-                        self?.showAlert = true
+                        self?.handleCustomError(error)
                     }
                 }, receiveValue: { [weak self] image in
                     guard let image = image else { return }
@@ -167,7 +167,6 @@ extension RestaurantListViewModel {
                 message = error.localizedDescription
                 self.notification = UserNotification(title: "Error", message: message)
             }
-            self.showAlert = true
         }
     }
 }

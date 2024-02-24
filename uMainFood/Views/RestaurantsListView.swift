@@ -19,14 +19,14 @@ struct RestaurantsListView: View {
                 } else {
                     NavigationLink(destination: RestaurantDetailView(restaurant: restaurant)) {
                         RestaurantRowView(restaurant: restaurant)
-                            .userAlert(item: $viewModel.notification)
+                            .userAlert(trigger: $viewModel.notification)
                     }
                 }
             }
             .refreshable {
                 // viewModel.fetchRestaurantsAndFilters()
             }
-            .userAlert(item: $viewModel.notification)
+            .userAlert(trigger: $viewModel.notification)
         }
     }
 }
