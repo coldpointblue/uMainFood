@@ -8,7 +8,7 @@ class ImageCache {
     static let shared = ImageCache()
     private var cache = NSCache<NSURL, UIImage>()
     
-    private init() {}
+    static private(set) var countSetCalls: Int = 0
     
     func image(for url: NSURL) -> UIImage? {
         cache.object(forKey: url)
@@ -16,6 +16,7 @@ class ImageCache {
     
     func setImage(_ image: UIImage, for url: NSURL) {
         cache.setObject(image, forKey: url)
+        ImageCache.countSetCalls += 1
     }
 }
 
