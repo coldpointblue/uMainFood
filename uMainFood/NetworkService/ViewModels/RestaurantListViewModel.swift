@@ -58,20 +58,27 @@ class RestaurantListViewModel: ObservableObject {
     }
     
     private func fetchImagesForFilters(_ filters: [API.Model.Filter]) {
-        filters.forEach { filter in
+        let imageFetchPublishers = filters.map { filter in
             networkService.fetchImage(from: filter.imageUrl)
                 .receive(on: DispatchQueue.main)
-                .sink(receiveCompletion: { [weak self] completion in
-                    if case .failure(let error) = completion {
+                .compactMap { $0 }
+                .map { (filter.id, $0) }
+                .catch { [weak self] error -> Empty<(UUID, UIImage), Never> in
+                    DispatchQueue.main.async {
                         self?.errorMessage = error.localizedDescription
                         self?.handleCustomError(error)
                     }
-                }, receiveValue: { [weak self] image in
-                    guard let image = image else { return }
-                    self?.filterImages[filter.id] = image
-                })
-                .store(in: &subscriptions)
+                    return Empty()
+                }
+                .eraseToAnyPublisher()
         }
+        
+        Publishers.MergeMany(imageFetchPublishers)
+            .sink(receiveCompletion: { _ in },
+                  receiveValue: { [weak self] id, image in
+                self?.filterImages[id] = image
+            })
+            .store(in: &subscriptions)
     }
     
     func applyFilters() {
@@ -143,4 +150,67 @@ struct UserNotification: Identifiable {
     var id = UUID()
     var title: String
     var message: String
+}
+
+extension RestaurantListViewModel {
+    func fetchRestaurantsAndFilters() {
+        guard !isRefreshingData, !hasLoadedInitialData else { return }
+        
+        isRefreshingData = true
+        resetData()
+        
+        let restaurantPublisher = networkService.fetchRestaurants()
+            .receive(on: DispatchQueue.main)
+            .catch { [weak self] error -> Empty<API.Model.RestaurantsResponse, Never> in
+                self?.handleCustomError(error)
+                return Empty(completeImmediately: true)
+            }
+        
+        restaurantPublisher
+            .flatMap { [weak self] response -> AnyPublisher<[API.Model.Filter], Never> in
+                guard let self = self else { return Empty().eraseToAnyPublisher() }
+                self.allRestaurants = response.restaurants
+                return self.fetchFilters(for: response.restaurants)
+            }
+            .sink(receiveCompletion: { [weak self] completion in
+                self?.processCompletion(completion)
+            }, receiveValue: { [weak self] filters in
+                self?.processFilters(filters)
+            })
+            .store(in: &subscriptions)
+    }
+    
+    private func resetData() {
+        allRestaurants = []
+        filters = []
+        selectedFilterIds.removeAll()
+    }
+    
+    private func fetchFilters(for restaurants: [API.Model.Restaurant]) -> AnyPublisher<[API.Model.Filter], Never> {
+        let uniqueFilterIds = Set(restaurants.flatMap { $0.filterIds })
+        let filterPublishers = uniqueFilterIds.map { networkService.fetchFilter(by: $0) }
+        return Publishers.MergeMany(filterPublishers)
+            .collect()
+            .catch { [weak self] error -> Just<[API.Model.Filter]> in
+                self?.handleCustomError(error)
+                return Just([])
+            }
+            .eraseToAnyPublisher()
+    }
+    
+    private func processCompletion(_ completion: Subscribers.Completion<Never>) {
+        isRefreshingData = false
+        hasLoadedInitialData = true
+        
+        if case let .failure(error) = completion {
+            errorMessage = error.localizedDescription
+            handleCustomError(error)
+        }
+    }
+    
+    private func processFilters(_ filters: [API.Model.Filter]) {
+        self.filters = filters
+        fetchImagesForFilters(filters)
+        updateUIAfterFetching()
+    }
 }
