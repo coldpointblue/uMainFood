@@ -27,7 +27,7 @@ class NetworkService {
         
         return session.dataTaskPublisher(for: url)
             .receive(on: DispatchQueue.global(qos: .userInitiated))
-            .timeout(10, scheduler: DispatchQueue.global(qos: .userInitiated), customError: { URLError(.timedOut) })
+            .timeout(7, scheduler: DispatchQueue.global(qos: .userInitiated), customError: { URLError(.timedOut) })
             .tryMap { data, response in
                 guard let httpResponse = response as? HTTPURLResponse, 200..<300 ~= httpResponse.statusCode else {
                     throw NetworkError.invalidResponse
