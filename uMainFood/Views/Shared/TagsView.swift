@@ -15,6 +15,7 @@ struct TagsView: View {
                 .foregroundColor(TVConst.grayTagShadeColor)
                 .font(style.font)
                 .fontWeight(style.weight)
+                .multilineTextAlignment(.leading)
             Spacer()
         }
     }
@@ -26,7 +27,7 @@ struct FontStyleCombo {
 }
 
 extension FontStyleCombo {
-    static let compactStyle = FontStyleCombo(font: .subheadline, weight: .heavy)
+    static let compactStyle = FontStyleCombo(font: .footnote, weight: .heavy)
     static let regularStyle = FontStyleCombo(font: .title2, weight: .regular)
 }
 
