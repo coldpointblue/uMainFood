@@ -187,12 +187,10 @@ extension RestaurantListViewModel {
             .sink(receiveCompletion: { [weak self] completion in
                 self?.processCompletion(completion)
             }, receiveValue: { [weak self] filters in
-                print("Before: \(filters.count)")
                 guard let self = self else { return }
                 let filters: [API.Model.Filter] = filters
-                print("After: \(filters.count)")
-                updateFilterToRestaurantsMap()
                 
+                updateFilterToRestaurantsMap()
                 fetchImagesForFilters(filters)
                 
                 DispatchQueue.main.async {
@@ -214,8 +212,6 @@ extension RestaurantListViewModel {
         let filterPublishers = uniqueFilterIds.map {
             networkService.fetchFilter(by: $0)
         }
-        print("filterPublishers: \(filterPublishers.count)")
-        
         
         return Publishers.MergeMany(filterPublishers)
             .collect()
