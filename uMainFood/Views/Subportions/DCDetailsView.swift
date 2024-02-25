@@ -36,7 +36,7 @@ struct DCDetailsView: View {
             DCTitleView(title: title)
             TagsView(activeTags: subtitle, isCompact: false)
                 .padding(.vertical, 4)
-            DCOpenOrNotView(isOpen: isOpen)
+            DCOpenOrNotView()
         }
         .padding(EdgeInsets(top: 0, leading: DCConst.overViewPadding + 8, bottom: 0, trailing: DCConst.overViewPadding))
     }

@@ -4,7 +4,10 @@
 import SwiftUI
 
 struct DCOpenOrNotView: View {
-    let isOpen: Bool
+    // Mock isOpen random because API.Model.Restaurant has no schedule
+    private var isOpen: Bool {
+        arc4random_uniform(2) == 0
+    }
     
     var body: some View {
         HStack {
@@ -19,6 +22,6 @@ struct DCOpenOrNotView: View {
 
 struct DCOpenOrNotView_Previews: PreviewProvider {
     static var previews: some View {
-        DCOpenOrNotView(isOpen: true)
+        DCOpenOrNotView()
     }
 }
