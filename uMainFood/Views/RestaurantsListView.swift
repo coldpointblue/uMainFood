@@ -12,7 +12,7 @@ struct RestaurantsListView: View {
     
     var body: some View {
         VStack {
-            FilterView(selectedFilterIds: $viewModel.selectedFilterIds, filters: $viewModel.filters)
+            FilterView(selectedFilterIds: $viewModel.selectedFilterIds, completeFilters: $viewModel.completeFilters)
             List(restaurantsToDisplay, id: \.id) { restaurant in
                 if viewModel.isRefreshingData {
                     SkeletonRestaurantRowView()

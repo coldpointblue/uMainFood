@@ -5,21 +5,26 @@ import SwiftUI
 
 struct FilterView: View {
     @Binding var selectedFilterIds: Set<UUID>
-    @Binding var filters: [API.Model.Filter]
+    @Binding var completeFilters: [API.Model.Filter.Complete]
     
     var body: some View {
         ScrollView(.horizontal, showsIndicators: false) {
             HStack {
-                ForEach(filters, id: \.self) { filter in
-                    Button(action: {
-                        selectedFilterIds.formSymmetricDifference([filter.id])
-                    }) {
-                        Text(filter.name)
-                            .padding()
-                            .background(selectedFilterIds.contains(filter.id) ? Color.blue : Color.gray)
-                            .foregroundColor(.white)
-                            .cornerRadius(10)
-                    }
+                ForEach(completeFilters, id: \.filter.id) { (completeFilter: API.Model.Filter.Complete) in
+                    let isSelected = selectedFilterIds.contains(completeFilter.filter.id)
+                    let iconImage = completeFilter.image.map { Image(uiImage: $0) } ?? Image.missingWebData()
+                    
+                    FilterToggleButton(isOn: Binding(
+                        get: { isSelected },
+                        set: { newValue in
+                            if newValue {
+                                selectedFilterIds.insert(completeFilter.filter.id)
+                            } else {
+                                selectedFilterIds.remove(completeFilter.filter.id)
+                                
+                            }
+                        }
+                    ), icon: iconImage, tag: completeFilter.filter.name)
                 }
             }
         }
@@ -28,13 +33,15 @@ struct FilterView: View {
 
 struct FilterView_Previews: PreviewProvider {
     static var previews: some View {
-        let filters: Binding<[API.Model.Filter]> = .constant([
-            API.Model.Filter(id: UUID(), name: "PrettyFilter", imageUrl: ""),
-            API.Model.Filter(id: UUID(), name: "TastyFilter", imageUrl: ""),
-            API.Model.Filter(id: UUID(), name: "OvernightFilter", imageUrl: "")
-        ])
+        let sampleCompleteFilters: [API.Model.Filter.Complete] = [
+            .init(filter: API.Model.Filter(id: UUID(), name: "PrettyFilter", imageUrl: ""), image: UIImage(systemName: "house.fill")),
+            .init(filter: API.Model.Filter(id: UUID(), name: "TastyFilter", imageUrl: ""), image: UIImage(systemName: "flame.fill")),
+            .init(filter: API.Model.Filter(id: UUID(), name: "OvernightFilter", imageUrl: ""), image: UIImage(systemName: "moon.stars.fill"))
+        ]
+        
+        let completeFilters: Binding<[API.Model.Filter.Complete]> = .constant(sampleCompleteFilters)
         let selectedFilterIds: Binding<Set<UUID>> = .constant([])
         
-        return FilterView(selectedFilterIds: selectedFilterIds, filters: filters)
+        return FilterView(selectedFilterIds: selectedFilterIds, completeFilters: completeFilters)
     }
 }

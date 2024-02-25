@@ -15,7 +15,6 @@ class RestaurantListViewModel: ObservableObject {
             }
         }
     }
-    @Published var filterImages: [UUID: UIImage] = [:]
     @Published var isRefreshingData = false
     @Published var errorMessage: String?
     
@@ -83,7 +82,9 @@ class RestaurantListViewModel: ObservableObject {
                     self?.handleCustomError(error)
                 }
             }, receiveValue: { [weak self] id, image in
-                self?.filterImages[id] = image
+                if let index = self?.completeFilters.firstIndex(where: { $0.filter.id == id }) {
+                    self?.completeFilters[index].image = image
+                }
             })
             .store(in: &subscriptions)
     }
@@ -188,14 +189,18 @@ extension RestaurantListViewModel {
                 self?.processCompletion(completion)
             }, receiveValue: { [weak self] filters in
                 guard let self = self else { return }
-                let filters: [API.Model.Filter] = filters
                 
-                updateFilterToRestaurantsMap()
-                fetchImagesForFilters(filters)
-                
+                // Create Complete filters, now Filters arrived
                 DispatchQueue.main.async {
+                    let initialCompleteFilters = filters.map {
+                        API.Model.Filter.Complete(filter: $0, image: nil)
+                    }
+                    self.completeFilters = initialCompleteFilters
                     self.filters = filters
                     self.updateUIAfterFetching()
+                    
+                    // Asynchronous image fetch
+                    self.fetchImagesForFilters(filters)
                 }
             })
             .store(in: &subscriptions)
