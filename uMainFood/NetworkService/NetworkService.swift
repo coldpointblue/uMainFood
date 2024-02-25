@@ -36,13 +36,17 @@ class NetworkService {
             }
             .decode(type: T.self, decoder: JSONDecoder())
             .mapError { error -> NetworkError in
-                switch error {
-                case let decodingError as Swift.DecodingError:
-                    return .decodingError(decodingError)
-                case let networkError as NetworkError:
-                    return networkError
-                default:
-                    return NetworkError.map(error)
+                if let urlError = error as? URLError, urlError.code == .timedOut {
+                    return .timeoutError
+                } else {
+                    switch error {
+                    case let decodingError as Swift.DecodingError:
+                        return .decodingError(decodingError)
+                    case let networkError as NetworkError:
+                        return networkError
+                    default:
+                        return NetworkError.map(error)
+                    }
                 }
             }
             .receive(on: DispatchQueue.main)

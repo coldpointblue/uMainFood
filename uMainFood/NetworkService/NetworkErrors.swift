@@ -12,15 +12,19 @@ enum NetworkError: Error {
     case invalidResponse
     case invalidUUID
     case notConnectedToInternet
+    case timeoutError
 }
 
 extension NetworkError {
     static func map(_ error: Error) -> NetworkError {
         switch error {
         case let urlError as URLError:
-            if urlError.code == .notConnectedToInternet {
+            switch urlError.code {
+            case .timedOut:
+                return .timeoutError
+            case .notConnectedToInternet:
                 return .notConnectedToInternet
-            } else {
+            default:
                 return .urlError(urlError)
             }
         case let decodingError as DecodingError:
