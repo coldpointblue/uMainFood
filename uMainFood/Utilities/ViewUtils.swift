@@ -120,9 +120,8 @@ extension View {
 
 // Default images
 extension Image {
-    static func missingWebData() -> any View {
+    static func missingWebData() -> Image {
         Image(systemName: "icloud.slash")
-            .imageScale(.large)
     }
 }
 
