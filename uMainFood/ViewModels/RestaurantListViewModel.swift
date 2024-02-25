@@ -6,6 +6,7 @@ import SwiftUI
 
 class RestaurantListViewModel: ObservableObject {
     @Published var allRestaurants: [API.Model.Restaurant] = []
+    @Published var completeFilters: [API.Model.Filter.Complete] = []
     @Published var filters: [API.Model.Filter] = []
     @Published var selectedFilterIds = Set<UUID>() {
         didSet {
@@ -133,6 +134,9 @@ extension RestaurantListViewModel {
                 case .notConnectedToInternet:
                     message = "Internet connection seems offline."
                     self.notification = UserNotification(title: "Network Error", message: message)
+                case .timeoutError:
+                    message = "Timeout error occurred."
+                    self.notification = UserNotification(title: "Timeout Error", message: message)
                 case .invalidURL, .invalidResponse, .imageDownloadError, .invalidUUID:
                     message = "An unknown network error occurred.\r" + error.localizedDescription
                     self.notification = UserNotification(title: "Error", message: message)
@@ -183,8 +187,11 @@ extension RestaurantListViewModel {
             .sink(receiveCompletion: { [weak self] completion in
                 self?.processCompletion(completion)
             }, receiveValue: { [weak self] filters in
+                print("Before: \(filters.count)")
                 guard let self = self else { return }
                 let filters: [API.Model.Filter] = filters
+                print("After: \(filters.count)")
+                updateFilterToRestaurantsMap()
                 
                 fetchImagesForFilters(filters)
                 
@@ -204,8 +211,11 @@ extension RestaurantListViewModel {
     
     private func fetchFilters(for restaurants: [API.Model.Restaurant]) -> AnyPublisher<[API.Model.Filter], Never> {
         let uniqueFilterIds = Set(restaurants.flatMap { $0.filterIds })
-        let filterPublishers = uniqueFilterIds.map { networkService.fetchFilter(by: $0)
+        let filterPublishers = uniqueFilterIds.map {
+            networkService.fetchFilter(by: $0)
         }
+        print("filterPublishers: \(filterPublishers.count)")
+        
         
         return Publishers.MergeMany(filterPublishers)
             .collect()

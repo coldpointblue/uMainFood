@@ -191,7 +191,6 @@
 				7247198A2B88448B00531910 /* ImagesCache.swift */,
 				724719882B8843B500531910 /* NetworkErrors.swift */,
 				7247198C2B8844F400531910 /* NetworkService.swift */,
-				721B6FAD2B88C7000090AF9C /* ViewModels */,
 			);
 			path = NetworkService;
 			sourceTree = "<group>";
@@ -247,6 +246,7 @@
 				72664C212B7E4D33003505DA /* API */,
 				721B6FAC2B88C6DA0090AF9C /* NetworkService */,
 				720431E92B862FA700D2E1DC /* Screens */,
+				721B6FAD2B88C7000090AF9C /* ViewModels */,
 				727151552B83880300753B66 /* Views */,
 				720431E52B862D7D00D2E1DC /* Utilities */,
 				7262CEF22B81472C009D1A0C /* Localization */,
