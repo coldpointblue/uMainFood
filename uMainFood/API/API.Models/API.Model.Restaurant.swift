@@ -18,3 +18,9 @@ extension API.Model {
         }
     }
 }
+
+extension API.Model.Restaurant {
+    static var example: API.Model.Restaurant {
+        API.Model.Restaurant(id: "", name: "FoodThis", rating: 5.0, filterIds: [], imageUrl: "", deliveryTimeMinutes: 20)
+    }
+}
