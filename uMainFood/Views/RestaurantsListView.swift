@@ -21,6 +21,7 @@ struct RestaurantsListView: View {
                         RestaurantRowView(restaurant: restaurant)
                             .userAlert(trigger: $viewModel.notification)
                     }
+                    .listRowBackground(Color.clear)
                 }
             }
             .refreshable {
