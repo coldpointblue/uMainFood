@@ -4,11 +4,13 @@
 import SwiftUI
 
 struct DetailCardView: View {
+    let restaurant: API.Model.Restaurant
+    var filters: [API.Model.Filter]
+    
     var body: some View {
         ZStack {
             VStack(spacing: 0) {
-                RCFoodImageView(imageName: "exampleImage")
-                DCDetailsView(title: "Emilias Fancy Food")
+                DCDetailsView(title: restaurant.name)
                     .offset(y: -DCConst.picSize.height/5)
             }
         }
@@ -27,7 +29,7 @@ struct DetailCardViewConstants {
 
 struct DetailCardView_Previews: PreviewProvider {
     static var previews: some View {
-        DetailCardView()
+        DetailCardView(restaurant: API.Model.Restaurant.example, filters: [])
     }
 }
 

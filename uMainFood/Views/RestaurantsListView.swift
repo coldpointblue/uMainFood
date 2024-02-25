@@ -18,7 +18,7 @@ struct RestaurantsListView: View {
                     if viewModel.isRefreshingData {
                         SkeletonRestaurantRowView()
                     } else {
-                        NavigationLink(destination: RestaurantDetailView(restaurant: restaurant)) {
+                        NavigationLink(destination: RestaurantDetailView(restaurant: restaurant, filters: viewModel.filters)) {
                             RestaurantCardView(restaurant: restaurant,
                                                filters: viewModel.filters)
                             .listRowInsets(EdgeInsets())
