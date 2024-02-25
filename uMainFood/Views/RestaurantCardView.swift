@@ -4,13 +4,21 @@
 import SwiftUI
 
 struct RestaurantCardView: View {
+    var restaurant: API.Model.Restaurant
+    var filters: [API.Model.Filter]
+
+    private func resolveFilterNames() -> [String] {
+        restaurant.filterIds.compactMap { id in
+            filters.first(where: { $0.id == id })?.name
+        }
+    }
+
     var body: some View {
         ZStack {
-            Color(Color.clear)
             VStack(spacing: 0) {
-                RCFoodImageView(imageName: "wanted_image_name")
+                RCFoodImageView(imageName: restaurant.name)
                     .roundTopCorners()
-                RCOverviewView(rating: 5, deliveryTimeInMinutes: 121, activeTags: ["Tag", "Tag", "Tag"], title: "Title")
+                RCOverviewView(rating: restaurant.rating, deliveryTimeInMinutes: restaurant.deliveryTimeMinutes, activeTags: resolveFilterNames(), title: restaurant.name)
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity)
             .aspectRatio(RCVConst.picSize.width / RCVConst.picSize.height, contentMode: .fit)
@@ -28,6 +36,8 @@ struct RestaurantCardViewConst {
 
 struct RestaurantCardView_Previews: PreviewProvider {
     static var previews: some View {
-        RestaurantCardView()
+        let viewModel = RestaurantListViewModel()
+        RestaurantCardView(restaurant: API.Model.Restaurant.example,
+                           filters: viewModel.filters)
     }
 }

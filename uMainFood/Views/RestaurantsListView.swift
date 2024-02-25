@@ -14,16 +14,23 @@ struct RestaurantsListView: View {
         VStack {
             FilterView(viewModel: viewModel)
             List(restaurantsToDisplay, id: \.id) { restaurant in
-                if viewModel.isRefreshingData {
-                    SkeletonRestaurantRowView()
-                } else {
-                    NavigationLink(destination: RestaurantDetailView(restaurant: restaurant)) {
-                        RestaurantRowView(restaurant: restaurant)
+                Group {
+                    if viewModel.isRefreshingData {
+                        SkeletonRestaurantRowView()
+                    } else {
+                        NavigationLink(destination: RestaurantDetailView(restaurant: restaurant)) {
+                            RestaurantCardView(restaurant: restaurant,
+                                               filters: viewModel.filters)
+                            .listRowInsets(EdgeInsets())
                             .userAlert(trigger: $viewModel.notification)
+                        }
+                        .listRowBackground(Color.clear)
                     }
-                    .listRowBackground(Color.clear)
                 }
+                .listRowSeparator(.hidden)
             }
+            .listStyle(PlainListStyle())
+            .background(.background)
             .refreshable {
                 viewModel.refreshData()
             }
