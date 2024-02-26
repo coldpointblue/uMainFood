@@ -5,9 +5,14 @@ import Combine
 import SwiftUI
 
 class RestaurantListViewModel: ObservableObject {
+    private var networkService = NetworkService.shared
+    private var subscriptions = Set<AnyCancellable>()
+    
+    // MARK: - Active UI updates
+    
     @Published var allRestaurants: [API.Model.Restaurant] = []
-    @Published var completeFilters: [API.Model.Filter.Complete] = []
     @Published var filters: [API.Model.Filter] = []
+    @Published var completeFilters: [API.Model.Filter.Complete] = []
     @Published var selectedFilterIds = Set<UUID>() {
         didSet {
             DispatchQueue.main.async {
@@ -15,80 +20,24 @@ class RestaurantListViewModel: ObservableObject {
             }
         }
     }
-    @Published var isRefreshingData = false
-    @Published var errorMessage: String?
     
     @Published var filteredRestaurants: [API.Model.Restaurant] = []
-    private var filterToRestaurantsMap: [UUID: Set<String>] = [:]
-    
-    private var networkService = NetworkService.shared
-    private var subscriptions = Set<AnyCancellable>()
-    
+    @Published var isRefreshingData = false
+    @Published var errorMessage: String?
     @Published var notification: UserNotification?
     
+    // MARK: - Internal State and Mappings
+    
+    private var filterToRestaurantsMap: [UUID: Set<String>] = [:]
+    private var filterNameMap: [UUID: String] = [:]
     private var hasLoadedInitialData = false
     
-    private var filterNameMap: [UUID: String] = [:]
+    
+    // MARK: - Core UX functions
     
     func refreshData() {
         hasLoadedInitialData = false
         fetchRestaurantsAndFilters()
-    }
-    
-    private func updateFilterToRestaurantsMap() {
-        // Was simpler but I am debugging async network filters
-        filterToRestaurantsMap.removeAll()
-        
-        var allFilterUUIDs = Set<UUID>()
-        for restaurant in allRestaurants {
-            allFilterUUIDs.formUnion(restaurant.filterIds)
-        }
-        
-        for filterUUID in allFilterUUIDs {
-            var restaurantIdsForFilter = Set<String>()
-            
-            for restaurant in allRestaurants {
-                if restaurant.filterIds.contains(filterUUID) {
-                    restaurantIdsForFilter.insert(restaurant.id)
-                }
-            }
-            DispatchQueue.main.async {
-                // Update dictionary UUID Keys with new Sets
-                self.filterToRestaurantsMap[filterUUID] = restaurantIdsForFilter
-            }
-        }
-    }
-    
-    private func fetchImagesForFilters(_ filters: [API.Model.Filter]) {
-        let imageFetchPublishers = filters.map { filter in
-            networkService.fetchImage(from: filter.imageUrl)
-                .receive(on: DispatchQueue.main)
-                .compactMap { $0 }
-                .map { (filter.id, $0) }
-                .catch { [weak self] error -> Empty<(UUID, UIImage), Never> in
-                    DispatchQueue.main.async {
-                        self?.errorMessage = error.localizedDescription
-                        self?.handleCustomError(error)
-                    }
-                    return Empty()
-                }
-                .eraseToAnyPublisher()
-        }
-        
-        Publishers.MergeMany(imageFetchPublishers)
-            .sink(receiveCompletion: { [weak self] completion in
-                switch completion {
-                case .finished:
-                    break
-                case .failure(let error):
-                    self?.handleCustomError(error)
-                }
-            }, receiveValue: { [weak self] id, image in
-                if let index = self?.completeFilters.firstIndex(where: { $0.filter.id == id }) {
-                    self?.completeFilters[index].image = image
-                }
-            })
-            .store(in: &subscriptions)
     }
     
     func applyFilters() {
@@ -121,61 +70,41 @@ class RestaurantListViewModel: ObservableObject {
     }
 }
 
+// MARK: - Data Fetching and Management
+
 extension RestaurantListViewModel {
-    private func handleCustomError(_ error: Error) {
-        DispatchQueue.main.async {
-            let message: String
-            if let networkError = error as? NetworkError {
-                switch networkError {
-                case .urlError(let urlError):
-                    message = urlError.localizedDescription
-                    self.notification = UserNotification(title: "Network Error", message: message)
-                case .decodingError(let decodingError):
-                    message = decodingError.localizedDescription
-                    self.notification = UserNotification(title: "Data Error", message: message)
-                case .genericError(let errorMessage):
-                    message = errorMessage
-                    self.notification = UserNotification(title: "Data Error", message: message)
-                case .notConnectedToInternet:
-                    message = "Internet connection seems offline."
-                    self.notification = UserNotification(title: "Network Error", message: message)
-                case .timeoutError:
-                    message = "Timeout error occurred."
-                    self.notification = UserNotification(title: "Timeout Error", message: message)
-                case .invalidURL, .invalidResponse, .imageDownloadError, .invalidUUID:
-                    message = "An unknown network error occurred.\r" + error.localizedDescription
-                    self.notification = UserNotification(title: "Error", message: message)
+    private func fetchImagesForFilters(_ filters: [API.Model.Filter]) {
+        let imageFetchPublishers = filters.map { filter in
+            networkService.fetchImage(from: filter.imageUrl)
+                .receive(on: DispatchQueue.main)
+                .compactMap { $0 }
+                .map { (filter.id, $0) }
+                .catch { [weak self] error -> Empty<(UUID, UIImage), Never> in
+                    DispatchQueue.main.async {
+                        self?.errorMessage = error.localizedDescription
+                        self?.handleCustomError(error)
+                    }
+                    return Empty()
                 }
-            } else {
-                message = error.localizedDescription
-                self.notification = UserNotification(title: "Error", message: message)
-            }
+                .eraseToAnyPublisher()
         }
-    }
-}
-
-extension RestaurantListViewModel {
-    @MainActor func updateUIAfterFetching() {
-        updateFilterToRestaurantsMap()
-        applyFilters()
-    }
-}
-
-extension RestaurantListViewModel {
-    func resolveFilterNames(for activeFilterIds: [UUID]) -> [String] {
-        activeFilterIds.compactMap { filterId in
-            filterNameMap[filterId]
-        }
+        
+        Publishers.MergeMany(imageFetchPublishers)
+            .sink(receiveCompletion: { [weak self] completion in
+                switch completion {
+                case .finished:
+                    break
+                case .failure(let error):
+                    self?.handleCustomError(error)
+                }
+            }, receiveValue: { [weak self] id, image in
+                if let index = self?.completeFilters.firstIndex(where: { $0.filter.id == id }) {
+                    self?.completeFilters[index].image = image
+                }
+            })
+            .store(in: &subscriptions)
     }
     
-    private func updateFilterNameMap(with filters: [API.Model.Filter]) {
-        filterNameMap = filters.reduce(into: [UUID: String]()) { (result, filter) in
-            result[filter.id] = filter.name
-        }
-    }
-}
-
-extension RestaurantListViewModel {
     func fetchRestaurantsAndFilters() {
         guard !isRefreshingData, !hasLoadedInitialData else { return }
         
@@ -219,12 +148,6 @@ extension RestaurantListViewModel {
             .store(in: &subscriptions)
     }
     
-    private func resetData() {
-        allRestaurants = []
-        filters = []
-        selectedFilterIds.removeAll()
-    }
-    
     private func fetchFilters(for restaurants: [API.Model.Restaurant]) -> AnyPublisher<[API.Model.Filter], Never> {
         let uniqueFilterIds = Set(restaurants.flatMap { $0.filterIds })
         let filterPublishers = uniqueFilterIds.map {
@@ -252,8 +175,53 @@ extension RestaurantListViewModel {
     }
 }
 
-struct UserNotification: Identifiable {
-    var id = UUID()
-    var title: String
-    var message: String
+// MARK: - Data Update Helpers
+
+extension RestaurantListViewModel {
+    @MainActor func updateUIAfterFetching() {
+        updateFilterToRestaurantsMap()
+        applyFilters()
+    }
+    
+    private func resetData() {
+        allRestaurants = []
+        filters = []
+        selectedFilterIds.removeAll()
+    }
+    
+    private func updateFilterToRestaurantsMap() {
+        // Was simpler but I am debugging async network filters missing
+        filterToRestaurantsMap.removeAll()
+        
+        var allFilterUUIDs = Set<UUID>()
+        for restaurant in allRestaurants {
+            allFilterUUIDs.formUnion(restaurant.filterIds)
+        }
+        
+        for filterUUID in allFilterUUIDs {
+            var restaurantIdsForFilter = Set<String>()
+            
+            for restaurant in allRestaurants {
+                if restaurant.filterIds.contains(filterUUID) {
+                    restaurantIdsForFilter.insert(restaurant.id)
+                }
+            }
+            DispatchQueue.main.async {
+                // Update dictionary UUID Keys with new Sets
+                self.filterToRestaurantsMap[filterUUID] = restaurantIdsForFilter
+            }
+        }
+    }
+    
+    func resolveFilterNames(for activeFilterIds: [UUID]) -> [String] {
+        activeFilterIds.compactMap { filterId in
+            filterNameMap[filterId]
+        }
+    }
+    
+    private func updateFilterNameMap(with filters: [API.Model.Filter]) {
+        filterNameMap = filters.reduce(into: [UUID: String]()) { (result, filter) in
+            result[filter.id] = filter.name
+        }
+    }
 }
