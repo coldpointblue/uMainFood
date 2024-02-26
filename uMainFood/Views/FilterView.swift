@@ -8,7 +8,7 @@ struct FilterView: View {
     
     var body: some View {
         ScrollView(.horizontal, showsIndicators: false) {
-            HStack {
+            HStack(spacing: 0) {
                 ForEach(viewModel.completeFilters, id: \.filter.id) { (completeFilter: API.Model.Filter.Complete) in
                     let isSelected = viewModel.selectedFilterIds.contains(completeFilter.filter.id)
                     let iconImage = completeFilter.image.map { Image(uiImage: $0) } ?? Image.missingWebData()
