@@ -5,18 +5,18 @@ import SwiftUI
 
 // Image view with conditional loading
 struct RCFoodImageView: View {
+    let restaurant: API.Model.Restaurant
+    var filters: [API.Model.Filter]
+    
     let imageName: String
     @State private var showErrorImage = false
     
     var body: some View {
-        Group {
-            if let image = UIImage(named: imageName), !showErrorImage {
-                Image(uiImage: image)
-                    .resizable()
-                    .aspectRatio(RCVConst.picSize, contentMode: .fill)
+        ZStack {
+            VStack(spacing: 0) {
+                AsyncImageView(urlString: restaurant.imageUrl, placeholder: UIImage(named: "placeholderImage") ?? UIImage.missingWebData())
+                    .aspectRatio(DCConst.picSize, contentMode: .fill)
                     .clipped()
-            } else {
-                placeholderImage
             }
         }
         .onAppear {
@@ -25,12 +25,13 @@ struct RCFoodImageView: View {
             }
         }
         .frame(width: RCVConst.picSize.width, height: RCVConst.picSize.height)
+        .aspectRatio(DCConst.picSize.width / DCConst.picSize.height, contentMode: .fit)
     }
     
     private var placeholderImage: some View {
         ZStack {
             Color.red.opacity(0.09)
-            Image(systemName: "photo")
+            Image(uiImage: UIImage.loadingPhoto())
                 .resizable()
                 .scaledToFit()
                 .padding(40)
@@ -43,6 +44,6 @@ struct RCFoodImageView: View {
 
 struct RCFoodImageView_Previews: PreviewProvider {
     static var previews: some View {
-        RCFoodImageView(imageName: "exampleImage")
+        RCFoodImageView(restaurant: API.Model.Restaurant.example, filters: [], imageName: "Fancy Place")
     }
 }
