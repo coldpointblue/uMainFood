@@ -13,7 +13,8 @@ struct RestaurantDetailView: View {
                 urlString: restaurant.imageUrl,
                 placeholder: UIImage.loadingPhoto()
             )
-            .aspectRatio(contentMode: .fit)
+            .frame(width: RestaurantCardViewConst.picSize.width, height: RestaurantCardViewConst.picSize.height)
+            .clipped()
             
             DetailCardView(restaurant: restaurant, viewModel: viewModel)
             
@@ -26,7 +27,6 @@ struct RestaurantDetailView: View {
 
 struct RestaurantDetailView_Previews: PreviewProvider {
     static var previews: some View {
-        
-        return RestaurantDetailView(restaurant: API.Model.Restaurant.example, viewModel: RestaurantListViewModel())
+        RestaurantDetailView(restaurant: API.Model.Restaurant.example, viewModel: RestaurantListViewModel())
     }
 }
