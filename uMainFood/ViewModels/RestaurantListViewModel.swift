@@ -105,8 +105,10 @@ class RestaurantListViewModel: ObservableObject {
             }
         }
         
-        filteredRestaurants = allRestaurants.filter { restaurant in
-            combinedRestaurantIds.contains(restaurant.id)
+        withAnimation {
+            filteredRestaurants = allRestaurants.filter { restaurant in
+                combinedRestaurantIds.contains(restaurant.id)
+            }
         }
     }
     
