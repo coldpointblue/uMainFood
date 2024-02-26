@@ -32,7 +32,7 @@ struct FilterView: View {
 
 struct FilterView_Previews: PreviewProvider {
     static var previews: some View {
-        @ObservedObject var viewModel = RestaurantListViewModel()
+        let viewModel = RestaurantListViewModel()
         
         viewModel.completeFilters  = [
             .init(filter: API.Model.Filter(id: UUID(), name: "PrettyFilter", imageUrl: ""), image: UIImage(systemName: "house.fill")),
