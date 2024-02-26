@@ -106,6 +106,11 @@ struct TimeIntoWordsFormatter {
     }
 }
 
+// uMain symbol constant
+extension String {
+    static let uMainSymbol: String = "U˙"
+}
+
 extension View {
     func userAlert(trigger: Binding<UserNotification?>) -> some View {
         self.alert(item: trigger) { notification in

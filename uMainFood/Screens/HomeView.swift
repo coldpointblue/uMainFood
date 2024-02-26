@@ -24,7 +24,7 @@ struct HomeView: View {
             .onReceive(viewModel.$allRestaurants) { allRestaurants in
                 viewModel.updateUIAfterFetching()
             }
-            .navigationTitle("Restaurants")
+            .navigationTitle(String.uMainSymbol)
             .toolbar(.hidden, for: .tabBar)
             .onAppear {
                 viewModel.fetchRestaurantsAndFilters()
