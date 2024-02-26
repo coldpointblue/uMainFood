@@ -28,6 +28,8 @@ class RestaurantListViewModel: ObservableObject {
     
     private var hasLoadedInitialData = false
     
+    private var filterNameMap: [UUID: String] = [:]
+    
     func refreshData() {
         hasLoadedInitialData = false
         fetchRestaurantsAndFilters()
@@ -157,10 +159,18 @@ extension RestaurantListViewModel {
     }
 }
 
-struct UserNotification: Identifiable {
-    var id = UUID()
-    var title: String
-    var message: String
+extension RestaurantListViewModel {
+    func resolveFilterNames(for activeFilterIds: [UUID]) -> [String] {
+        activeFilterIds.compactMap { filterId in
+            filterNameMap[filterId]
+        }
+    }
+    
+    private func updateFilterNameMap(with filters: [API.Model.Filter]) {
+        filterNameMap = filters.reduce(into: [UUID: String]()) { (result, filter) in
+            result[filter.id] = filter.name
+        }
+    }
 }
 
 extension RestaurantListViewModel {
@@ -198,6 +208,7 @@ extension RestaurantListViewModel {
                     self.completeFilters = initialCompleteFilters
                     self.filters = filters
                     self.updateUIAfterFetching()
+                    self.updateFilterNameMap(with: filters)
                     
                     // Asynchronous image fetch
                     self.fetchImagesForFilters(filters)
@@ -237,4 +248,10 @@ extension RestaurantListViewModel {
             handleCustomError(error)
         }
     }
+}
+
+struct UserNotification: Identifiable {
+    var id = UUID()
+    var title: String
+    var message: String
 }
