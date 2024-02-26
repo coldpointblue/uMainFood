@@ -11,7 +11,7 @@ struct DCDetailsView: View {
     private let spaceToEdge: CGFloat = 18
     
     // Default parameter values
-    init( title: String = "Title", subtitle: [String] = ["Take-Out", "Fast Delivery", "Eat In"], isOpen : Bool = true) {
+    init( title: String, subtitle: [String], isOpen : Bool = true) {
         self.title = title
         self.subtitle = subtitle
         self.isOpen = isOpen
@@ -44,6 +44,6 @@ struct DCDetailsView: View {
 
 struct DCDetailsView_Previews: PreviewProvider {
     static var previews: some View {
-        DCDetailsView()
+        DCDetailsView(title: API.Model.Restaurant.example.name, subtitle: [])
     }
 }

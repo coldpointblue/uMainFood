@@ -18,11 +18,10 @@ struct RestaurantsListView: View {
                     if viewModel.isRefreshingData {
                         SkeletonRestaurantRowView()
                     } else {
-                        NavigationLink(destination: RestaurantDetailView(restaurant: restaurant, filters: viewModel.filters)) {
-                            RestaurantCardView(restaurant: restaurant,
-                                               filters: viewModel.filters)
-                            .listRowInsets(EdgeInsets())
-                            .userAlert(trigger: $viewModel.notification)
+                        NavigationLink(destination:                         RestaurantDetailView(restaurant: restaurant, viewModel: viewModel)) {
+                            RestaurantCardView(restaurant: restaurant, filters: viewModel.filters, filterNames: viewModel.resolveFilterNames(for: restaurant.filterIds))
+                                .listRowInsets(EdgeInsets())
+                                .userAlert(trigger: $viewModel.notification)
                         }
                         .listRowBackground(Color.clear)
                     }

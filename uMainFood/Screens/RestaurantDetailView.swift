@@ -5,8 +5,8 @@ import SwiftUI
 
 struct RestaurantDetailView: View {
     let restaurant: API.Model.Restaurant
-    var filters: [API.Model.Filter]
-
+    @ObservedObject var viewModel: RestaurantListViewModel
+    
     var body: some View {
         VStack(alignment: .leading, spacing: 20) {
             AsyncImageView(
@@ -15,7 +15,7 @@ struct RestaurantDetailView: View {
             )
             .aspectRatio(contentMode: .fit)
             
-            DetailCardView(restaurant: restaurant, filters: filters)
+            DetailCardView(restaurant: restaurant, viewModel: viewModel)
             
             Spacer()
         }
@@ -27,6 +27,6 @@ struct RestaurantDetailView: View {
 struct RestaurantDetailView_Previews: PreviewProvider {
     static var previews: some View {
         
-        return RestaurantDetailView(restaurant: API.Model.Restaurant.example, filters: [])
+        return RestaurantDetailView(restaurant: API.Model.Restaurant.example, viewModel: RestaurantListViewModel())
     }
 }
