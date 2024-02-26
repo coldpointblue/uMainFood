@@ -143,6 +143,7 @@
 			isa = PBXGroup;
 			children = (
 				727151562B83895F00753B66 /* ViewUtils.swift */,
+				729FA01B2B8CA5A000EBA5D5 /* RestaurantErrorHandling.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -201,7 +202,6 @@
 			isa = PBXGroup;
 			children = (
 				7247199A2B884FB500531910 /* RestaurantListViewModel.swift */,
-				729FA01B2B8CA5A000EBA5D5 /* RestaurantErrorHandling.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
