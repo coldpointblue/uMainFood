@@ -14,7 +14,7 @@ struct DCDetailsView: View {
     init( title: String, subtitle: [String], isOpen : Bool = true) {
         self.title = title
         self.subtitle = subtitle
-        self.isOpen = isOpen
+        self.isOpen = isOpen // Random now, data has no schedule
     }
     
     var body: some View {
