@@ -9,8 +9,8 @@ struct RCHeadlineView: View {
     
     var body: some View {
         HStack {
-            Text(title)
-                .font(.title)
+            DynamicScaleTextLine(text: title)
+                .frame(height:  32)
             Spacer()
             RCRatingView(rating: rating)
         }
@@ -19,6 +19,8 @@ struct RCHeadlineView: View {
 
 struct RCHeadlineView_Previews: PreviewProvider {
     static var previews: some View {
-        RCHeadlineView(title: "ExampleTitle", rating: 5.0)
+        RCHeadlineView(title: "Long Example Which Must Fit One Line", rating: 4.5)
+            .padding()
+            .previewLayout(.sizeThatFits)
     }
 }
