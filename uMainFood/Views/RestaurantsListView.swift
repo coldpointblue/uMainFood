@@ -16,7 +16,7 @@ struct RestaurantsListView: View {
             List(restaurantsToDisplay, id: \.id) { restaurant in
                 Group {
                     if viewModel.isRefreshingData {
-                        SkeletonRestaurantRowView()
+                        EmptyView()
                     } else {
                         ZStack {
                             RestaurantCardView(restaurant: restaurant, filters: viewModel.filters, filterNames: viewModel.resolveFilterNames(for: restaurant.filterIds))
