@@ -143,13 +143,14 @@ extension UIImage {
 // Adjust Text scale dynamically to fit it within one line
 struct DynamicScaleTextLine: View {
     var text: String
+    
     var body: some View {
         GeometryReader { geometry in
             Text(text)
                 .font(.largeTitle) // Start size Will adjust
                 .scaledToFit()
-                .minimumScaleFactor(0.01)
-                .lineLimit(1) // Ensures text does not wrap to a new line
+                .minimumScaleFactor(0.2)
+                .lineLimit(1)
                 .frame(width: geometry.size.width, alignment: .leading)
         }
     }

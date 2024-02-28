@@ -12,7 +12,7 @@ struct DCOpenOrNotView: View {
             Text(isOpen ?
                  "open_sign" : "closed_sign")
             .font(.title)
-            .foregroundColor(isOpen ? .green : .red)
+            .foregroundColor(isOpen ? .rcPositive : .rcNegative)
             Spacer()
         }
         .onAppear {
