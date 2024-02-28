@@ -34,14 +34,16 @@ struct FilterView_Previews: PreviewProvider {
     static var previews: some View {
         let viewModel = RestaurantListViewModel()
         
-        viewModel.completeFilters  = [
-            .init(filter: API.Model.Filter(id: UUID(), name: "PrettyFilter", imageUrl: ""), image: UIImage(systemName: "house.fill")),
-            .init(filter: API.Model.Filter(id: UUID(), name: "TastyFilter", imageUrl: ""), image: UIImage(systemName: "flame.fill")),
-            .init(filter: API.Model.Filter(id: UUID(), name: "OvernightFilter", imageUrl: ""), image: UIImage(systemName: "moon.stars.fill"))
+        let filterDetails = [
+            ("PrettyFilter", "house.fill"),
+            ("TastyFilter", "flame.fill"),
+            ("OvernightFilter", "moon.stars.fill")
         ]
         
+        viewModel.completeFilters = filterDetails.map { name, systemImageName in
+                .init(filter: API.Model.Filter(id: UUID(), name: name, imageUrl: ""), image: UIImage(systemName: systemImageName))
+        }
+        
         return FilterView(viewModel: viewModel)
-        
-        
     }
 }
