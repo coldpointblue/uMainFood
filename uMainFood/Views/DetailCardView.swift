@@ -7,15 +7,11 @@ struct DetailCardView: View {
     let restaurant: API.Model.Restaurant
     @ObservedObject var viewModel: RestaurantListViewModel
     
+    private let shiftDown = -DCConst.picSize.height/2.88
+    
     var body: some View {
-        ZStack {
-            VStack(spacing: 0) {
                 DCDetailsView(title: restaurant.name, subtitle: viewModel.resolveFilterNames(for: restaurant.filterIds))
-                    .offset(y: -DCConst.picSize.height/5)
-            }
-        }
-        .frame(maxWidth: .infinity, maxHeight: .infinity)
-        .aspectRatio(DCConst.picSize.width / DCConst.picSize.height, contentMode: .fit)
+                    .offset(y: shiftDown)
     }
 }
 
