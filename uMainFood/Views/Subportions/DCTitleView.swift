@@ -7,11 +7,8 @@ struct DCTitleView: View {
     let title: String
     
     var body: some View {
-        HStack {
-            Text(title)
-                .font(.largeTitle)
-            Spacer()
-        }
+        DynamicScaleTextLine(text: title)
+            .frame(height:  38)
     }
 }
 
