@@ -55,8 +55,14 @@ class RestaurantListViewModel: ObservableObject {
         }
         
         withAnimation {
-            filteredRestaurants = allRestaurants.filter { restaurant in
-                combinedRestaurantIds.contains(restaurant.id)
+            // Priority sort with rating first, then alphabetic
+            filteredRestaurants = allRestaurants.filter {
+                combinedRestaurantIds.contains($0.id)
+            }.sorted {
+                if $0.rating == $1.rating {
+                    return $0.name < $1.name
+                }
+                return $0.rating > $1.rating
             }
         }
     }
