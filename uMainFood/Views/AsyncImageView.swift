@@ -4,7 +4,8 @@
 import SwiftUI
 
 struct AsyncImageView: View {
-    @StateObject private var loader = LazyImageLoader()
+    @StateObject private var loader = LazyImageLoader(networkService: NetworkService.shared)
+    
     let urlString: String
     var placeholder: UIImage
     

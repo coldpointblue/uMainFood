@@ -22,11 +22,14 @@ class ImageCache {
 
 class LazyImageLoader: ObservableObject {
     @Published var image: UIImage?
+    @Published var isError: Bool = false
+    
+    private var networkService: NetworkServiceProtocol
     private var cancellables = Set<AnyCancellable>()
     
-    private let networkService = NetworkService.shared
-    
-    @Published var isError: Bool = false
+    init(networkService: NetworkServiceProtocol) {
+        self.networkService = networkService
+    }
     
     func loadImageIfNeeded(from urlString: String) {
         // Only fetch if the image hasn't been loaded
