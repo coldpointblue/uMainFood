@@ -22,7 +22,7 @@ struct HomeView: View {
                 }
             }
             .onReceive(viewModel.$allRestaurants) { allRestaurants in
-                viewModel.updateUIAfterFetching()
+                viewModel.updateUI()
             }
             .navigationTitle(String.uMainSymbol)
             .toolbar(.hidden, for: .tabBar)

@@ -10,8 +10,9 @@ struct DetailCardView: View {
     private let shiftDown = -DCConst.picSize.height/2.88
     
     var body: some View {
-                DCDetailsView(title: restaurant.name, subtitle: viewModel.resolveFilterNames(for: restaurant.filterIds))
-                    .offset(y: shiftDown)
+                DCDetailsView(title: restaurant.name,
+                              subtitle: viewModel.renewFilterNames(for: restaurant.filterIds))
+                .offset(y: shiftDown)
     }
 }
 

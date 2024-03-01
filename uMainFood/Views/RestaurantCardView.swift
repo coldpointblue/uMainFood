@@ -34,6 +34,6 @@ struct RestaurantCardView_Previews: PreviewProvider {
         let viewModel = RestaurantListViewModel()
         let example = API.Model.Restaurant.example
         
-        return RestaurantCardView(restaurant: example, filters: viewModel.filters, filterNames: viewModel.resolveFilterNames(for: example.filterIds))
+        return RestaurantCardView(restaurant: example, filters: viewModel.filters, filterNames: viewModel.renewFilterNames(for: example.filterIds))
     }
 }

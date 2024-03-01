@@ -4,7 +4,18 @@
 import Combine
 import SwiftUI
 
-class RestaurantListViewModel: ObservableObject {
+protocol RestaurantListDataSource: AnyObject {
+    var allRestaurants: [API.Model.Restaurant] { get set }
+    var filters: [API.Model.Filter] { get set }
+    var selectedFilterIds: Set<UUID> { get set }
+    func applyFilters()
+    func newRestaurantSet(_ filterKey: UUID, restaurantSet: Set<String>)
+    func clearFilterToRestaurantsMap()
+    func getFilterName(forId id: UUID) -> String?
+    func replaceFilterNameMap(_ map: [UUID: String])
+}
+
+class RestaurantListViewModel: ObservableObject, RestaurantListDataSource {
     private var networkService = NetworkService.shared
     private var subscriptions = Set<AnyCancellable>()
     
@@ -31,6 +42,10 @@ class RestaurantListViewModel: ObservableObject {
     private var filterToRestaurantsMap: [UUID: Set<String>] = [:]
     private var filterNameMap: [UUID: String] = [:]
     private var hasLoadedInitialData = false
+    
+    private lazy var dataUpdater: RestaurantListDataUpdater = {
+        RestaurantListDataUpdater(restaurantListData: self)
+    }()
     
     
     // MARK: - Core UX functions
@@ -144,8 +159,8 @@ extension RestaurantListViewModel {
                     }
                     self.completeFilters = initialCompleteFilters
                     self.filters = filters
-                    self.updateUIAfterFetching()
-                    self.updateFilterNameMap(with: filters)
+                    self.dataUpdater.updateUIAfterFetching()
+                    self.dataUpdater.updateFilterNameMap(with: filters)
                     
                     // Asynchronous image fetch
                     self.fetchImagesForFilters(filters)
@@ -179,55 +194,38 @@ extension RestaurantListViewModel {
             handleCustomError(error)
         }
     }
-}
-
-// MARK: - Data Update Helpers
-
-extension RestaurantListViewModel {
-    @MainActor func updateUIAfterFetching() {
-        updateFilterToRestaurantsMap()
-        applyFilters()
-    }
     
-    private func resetData() {
+    func resetData() {
         allRestaurants = []
         filters = []
         selectedFilterIds.removeAll()
     }
+}
+
+extension RestaurantListViewModel {
+    @MainActor
+    func newRestaurantSet(_ filterKey: UUID, restaurantSet: Set<String>) {
+        filterToRestaurantsMap[filterKey] = restaurantSet
+    }
     
-    private func updateFilterToRestaurantsMap() {
-        // Was simpler but I am debugging async network filters missing
+    func clearFilterToRestaurantsMap() {
         filterToRestaurantsMap.removeAll()
-        
-        var allFilterUUIDs = Set<UUID>()
-        for restaurant in allRestaurants {
-            allFilterUUIDs.formUnion(restaurant.filterIds)
-        }
-        
-        for filterUUID in allFilterUUIDs {
-            var restaurantIdsForFilter = Set<String>()
-            
-            for restaurant in allRestaurants {
-                if restaurant.filterIds.contains(filterUUID) {
-                    restaurantIdsForFilter.insert(restaurant.id)
-                }
-            }
-            DispatchQueue.main.async {
-                // Update dictionary UUID Keys with new Sets
-                self.filterToRestaurantsMap[filterUUID] = restaurantIdsForFilter
-            }
-        }
     }
     
-    func resolveFilterNames(for activeFilterIds: [UUID]) -> [String] {
-        activeFilterIds.compactMap { filterId in
-            filterNameMap[filterId]
-        }
+    func getFilterName(forId id: UUID)-> String? {
+        filterNameMap[id]
     }
     
-    private func updateFilterNameMap(with filters: [API.Model.Filter]) {
-        filterNameMap = filters.reduce(into: [UUID: String]()) { (result, filter) in
-            result[filter.id] = filter.name
-        }
+    func replaceFilterNameMap(_ map: [UUID: String]) {
+        self.filterNameMap = map
+    }
+    
+    @MainActor
+    func updateUI() {
+        self.dataUpdater.updateUIAfterFetching()
+    }
+    
+    func renewFilterNames(for activeFilterIds: [UUID]) -> [String] {
+        dataUpdater.resolveFilterNames(for: activeFilterIds)
     }
 }

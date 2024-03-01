@@ -19,7 +19,7 @@ struct RestaurantsListView: View {
                         EmptyView()
                     } else {
                         ZStack {
-                            RestaurantCardView(restaurant: restaurant, filters: viewModel.filters, filterNames: viewModel.resolveFilterNames(for: restaurant.filterIds))
+                            RestaurantCardView(restaurant: restaurant, filters: viewModel.filters, filterNames: viewModel.renewFilterNames(for: restaurant.filterIds))
                                 .listRowInsets(EdgeInsets())
                                 .userAlert(trigger: $viewModel.notification)
                             NavigationLink(destination: RestaurantDetailView(restaurant: restaurant, viewModel: viewModel)) {

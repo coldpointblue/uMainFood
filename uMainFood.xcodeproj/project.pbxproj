@@ -44,6 +44,7 @@
 		729A1C0D2B8B0639002F97A9 /* API.Model.Filter.Complete.swift in Sources */ = {isa = PBXBuildFile; fileRef = 729A1C0C2B8B0639002F97A9 /* API.Model.Filter.Complete.swift */; };
 		729FA01C2B8CA5A000EBA5D5 /* RestaurantErrorHandling.swift in Sources */ = {isa = PBXBuildFile; fileRef = 729FA01B2B8CA5A000EBA5D5 /* RestaurantErrorHandling.swift */; };
 		72A319AD2B80D3DD00FC67B8 /* RestaurantCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72A319AC2B80D3DD00FC67B8 /* RestaurantCardView.swift */; };
+		72ACAF882B909D990009CF53 /* RestaurantListDataUpdater.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72ACAF872B909D990009CF53 /* RestaurantListDataUpdater.swift */; };
 		72E8E9222B84236100D459A8 /* DCDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72E8E9212B84236100D459A8 /* DCDetailsView.swift */; };
 		72E8E9242B84237300D459A8 /* DetailCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72E8E9232B84237300D459A8 /* DetailCardView.swift */; };
 /* End PBXBuildFile section */
@@ -106,6 +107,7 @@
 		729A1C0C2B8B0639002F97A9 /* API.Model.Filter.Complete.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = API.Model.Filter.Complete.swift; sourceTree = "<group>"; };
 		729FA01B2B8CA5A000EBA5D5 /* RestaurantErrorHandling.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestaurantErrorHandling.swift; sourceTree = "<group>"; };
 		72A319AC2B80D3DD00FC67B8 /* RestaurantCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestaurantCardView.swift; sourceTree = "<group>"; };
+		72ACAF872B909D990009CF53 /* RestaurantListDataUpdater.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestaurantListDataUpdater.swift; sourceTree = "<group>"; };
 		72E8E9212B84236100D459A8 /* DCDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DCDetailsView.swift; sourceTree = "<group>"; };
 		72E8E9232B84237300D459A8 /* DetailCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailCardView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -198,6 +200,7 @@
 			isa = PBXGroup;
 			children = (
 				7247199A2B884FB500531910 /* RestaurantListViewModel.swift */,
+				72ACAF872B909D990009CF53 /* RestaurantListDataUpdater.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -452,6 +455,7 @@
 			files = (
 				7247199D2B88503900531910 /* FilterView.swift in Sources */,
 				72664C2C2B7E4EB7003505DA /* API.Model.RestaurantsResponse.swift in Sources */,
+				72ACAF882B909D990009CF53 /* RestaurantListDataUpdater.swift in Sources */,
 				720431E42B862BA000D2E1DC /* FilterToggleButton.swift in Sources */,
 				72664BF82B7E4C9A003505DA /* HomeView.swift in Sources */,
 				727151652B83951100753B66 /* RCOverviewView.swift in Sources */,
