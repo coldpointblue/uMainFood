@@ -4,16 +4,23 @@
 import Combine
 import UIKit
 
-class NetworkService {
+protocol NetworkServiceProtocol {
+    func fetchRestaurants() -> AnyPublisher<API.Model.RestaurantsResponse, NetworkError>
+    func fetchFilter(by id: UUID) -> AnyPublisher<API.Model.Filter, NetworkError>
+    func fetchOpenStatus(for restaurantId: String) -> AnyPublisher<API.Model.OpenStatus, NetworkError>
+    func sharedImagePublisher(for urlString: String) -> AnyPublisher<UIImage?, NetworkError>
+    func fetchImage(from urlString: String) -> AnyPublisher<UIImage?, NetworkError>
+}
+
+final class NetworkService: NetworkServiceProtocol {
     static let shared = NetworkService() // Singleton instance
     
     private let session: URLSession
-    private var subscriptions = Set<AnyCancellable>()
-    private var imagePublishers: [URL: AnyPublisher<UIImage?, NetworkError>] = [:]
-    private let imageCache = ImageCache.shared
     private let queue = DispatchQueue(label: "NetworkServiceQueue", attributes: .concurrent)
+    private let imageCache = ImageCache.shared
+    private var imagePublishers: [URL: AnyPublisher<UIImage?, NetworkError>] = [:]
     
-    init() {
+    private init() {
         let sessionConfig = URLSessionConfiguration.default
         sessionConfig.tlsMinimumSupportedProtocolVersion = tls_protocol_version_t.TLSv13
         self.session = URLSession(configuration: sessionConfig)
@@ -72,6 +79,7 @@ extension NetworkService {
             return Fail(error: NetworkError.invalidURL).eraseToAnyPublisher()
         }
         
+        // Reads concurrently, writes serialized to prevent race conditions
         var publisher: AnyPublisher<UIImage?, NetworkError>?
         queue.sync {
             if let existingPublisher = imagePublishers[url] {
