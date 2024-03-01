@@ -1,22 +1,4 @@
-//  ----------------------------------------------------
-//
-//  RestaurantListDataUpdater.swift
-//  Version 1.0
-//
-//  Unique ID:  F924DF23-4906-4920-BDBE-E43E00943752
-//
-//  part of the uMainFood™ product.
-//
-//  Written in Swift 5.0 on macOS 14.3
-//
-//  https://github.com/coldpointblue
-//  Created by Hugo Diaz on 2024-02-29.
-//
-//  ----------------------------------------------------
-
-//  ----------------------------------------------------
 /*  Goal explanation:  Data operations + updates for RestaurantListViewModel   */
-//  ----------------------------------------------------
 
 
 import SwiftUI
