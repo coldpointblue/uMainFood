@@ -16,7 +16,7 @@ protocol RestaurantListDataSource: AnyObject {
 }
 
 class RestaurantListViewModel: ObservableObject, RestaurantListDataSource {
-    private var networkService = NetworkService.shared
+    private var networkService: NetworkServiceProtocol
     private var subscriptions = Set<AnyCancellable>()
     
     // MARK: - Active UI updates
@@ -47,6 +47,9 @@ class RestaurantListViewModel: ObservableObject, RestaurantListDataSource {
         RestaurantListDataUpdater(restaurantListData: self)
     }()
     
+    init(networkService: NetworkServiceProtocol) {
+        self.networkService = networkService
+    }
     
     // MARK: - Core UX functions
     

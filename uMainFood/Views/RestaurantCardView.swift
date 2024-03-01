@@ -31,7 +31,7 @@ struct RestaurantCardViewConst {
 
 struct RestaurantCardView_Previews: PreviewProvider {
     static var previews: some View {
-        let viewModel = RestaurantListViewModel()
+        let viewModel = RestaurantListViewModel(networkService: NetworkService.shared)
         let example = API.Model.Restaurant.example
         
         return RestaurantCardView(restaurant: example, filters: viewModel.filters, filterNames: viewModel.renewFilterNames(for: example.filterIds))

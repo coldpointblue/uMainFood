@@ -43,7 +43,7 @@ struct RestaurantsListView: View {
 
 struct RestaurantsListView_Previews: PreviewProvider {
     static var previews: some View {
-        let viewModel = RestaurantListViewModel()
+        let viewModel = RestaurantListViewModel(networkService: NetworkService.shared)
         viewModel.allRestaurants = [API.Model.Restaurant(id: "1234", name: "Johnny's", rating: 4.5, filterIds: [], imageUrl: "4321", deliveryTimeMinutes: 2), API.Model.Restaurant(id: "", name: "Jenny's", rating: 5, filterIds: [], imageUrl: "", deliveryTimeMinutes: 1)]
         
         return RestaurantsListView(viewModel: viewModel)

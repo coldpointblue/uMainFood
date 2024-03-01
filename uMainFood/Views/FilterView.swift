@@ -36,7 +36,7 @@ struct FilterView: View {
 
 struct FilterView_Previews: PreviewProvider {
     static var previews: some View {
-        let viewModel = RestaurantListViewModel()
+        let viewModel = RestaurantListViewModel(networkService: NetworkService.shared)
         
         let filterDetails = [
             ("PrettyFilter", "house.fill"),

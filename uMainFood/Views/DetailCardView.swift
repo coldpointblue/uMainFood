@@ -26,6 +26,6 @@ struct DetailCardViewConstants {
 
 struct DetailCardView_Previews: PreviewProvider {
     static var previews: some View {
-        DetailCardView(restaurant: API.Model.Restaurant.example, viewModel: RestaurantListViewModel())
+        DetailCardView(restaurant: API.Model.Restaurant.example, viewModel: RestaurantListViewModel(networkService: NetworkService.shared))
     }
 }

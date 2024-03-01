@@ -27,6 +27,6 @@ struct RestaurantDetailView: View {
 
 struct RestaurantDetailView_Previews: PreviewProvider {
     static var previews: some View {
-        RestaurantDetailView(restaurant: API.Model.Restaurant.example, viewModel: RestaurantListViewModel())
+        RestaurantDetailView(restaurant: API.Model.Restaurant.example, viewModel: RestaurantListViewModel(networkService: NetworkService.shared))
     }
 }

@@ -4,7 +4,7 @@
 import SwiftUI
 
 struct HomeView: View {
-    @StateObject var viewModel = RestaurantListViewModel()
+    @StateObject var viewModel = RestaurantListViewModel(networkService: NetworkService.shared)
     
     var body: some View {
         NavigationStack {
