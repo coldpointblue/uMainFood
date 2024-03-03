@@ -21,7 +21,6 @@ struct RestaurantsListView: View {
                         ZStack {
                             RestaurantCardView(restaurant: restaurant, filters: viewModel.filters, filterNames: viewModel.renewFilterNames(for: restaurant.filterIds))
                                 .listRowInsets(EdgeInsets())
-                                .userAlert(trigger: $viewModel.notification)
                             NavigationLink(destination: RestaurantDetailView(restaurant: restaurant, viewModel: viewModel)) {
                                 EmptyView()
                             }
@@ -36,7 +35,6 @@ struct RestaurantsListView: View {
             .refreshable {
                 viewModel.refreshData()
             }
-            .userAlert(trigger: $viewModel.notification)
         }
     }
 }

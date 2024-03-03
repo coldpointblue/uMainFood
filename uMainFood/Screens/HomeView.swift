@@ -30,6 +30,7 @@ struct HomeView: View {
                 viewModel.fetchRestaurantsAndFilters()
             }
         }
+        .userAlert(trigger: $viewModel.notification)
     }
 }
 

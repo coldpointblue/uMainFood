@@ -34,7 +34,11 @@ class RestaurantListViewModel: ObservableObject, RestaurantListDataSource {
     
     @Published var filteredRestaurants: [API.Model.Restaurant] = []
     @Published var isRefreshingData = false
-    @Published var errorMessage: String?
+    @Published var errorMessage: String? {
+        didSet {
+            notification = errorMessage.map { UserNotification(title: "Error", message: $0) }
+        }
+    }
     @Published var notification: UserNotification?
     
     // MARK: - Internal State and Mappings

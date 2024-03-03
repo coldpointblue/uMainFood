@@ -112,14 +112,17 @@ extension String {
 }
 
 extension View {
-    func userAlert(trigger: Binding<UserNotification?>) -> some View {
-        self.alert(item: trigger) { notification in
-            Alert(
-                title: Text(notification.title),
-                message: Text(notification.message),
-                dismissButton: .default(Text("OK"))
-            )
-        }
+    func userAlert(trigger notification: Binding<UserNotification?>) -> some View {
+        alert(
+            "Error",
+            isPresented: Binding<Bool>(
+                get: { notification.wrappedValue != nil },
+                set: { _ in notification.wrappedValue = nil }
+            ),
+            presenting: notification.wrappedValue
+        ) { _ in
+            Button("OK", role: .cancel) { }
+        } message: { Text($0.message) }
     }
 }
 
