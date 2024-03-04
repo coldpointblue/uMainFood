@@ -8,11 +8,11 @@ enum APIEndpoint {
     case filter(UUID)
     case openStatus(String)
     
-    var baseURL: URL? {
+    private var baseURL: URL? {
         URL(string: "https://food-delivery.umain.io/api/v1/")
     }
     
-    var path: String {
+    private var path: String {
         switch self {
         case .restaurants:
             return "restaurants"
