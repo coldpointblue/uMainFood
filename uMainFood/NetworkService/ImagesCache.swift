@@ -6,9 +6,8 @@ import Combine
 
 class ImageCache {
     static let shared = ImageCache()
-    private var cache = NSCache<NSURL, UIImage>()
     
-    static private(set) var countSetCalls: Int = 0
+    private var cache = NSCache<NSURL, UIImage>()
     
     func image(for url: NSURL) -> UIImage? {
         cache.object(forKey: url)
@@ -16,7 +15,6 @@ class ImageCache {
     
     func setImage(_ image: UIImage, for url: NSURL) {
         cache.setObject(image, forKey: url)
-        ImageCache.countSetCalls += 1
     }
 }
 
@@ -32,8 +30,8 @@ class LazyImageLoader: ObservableObject {
     }
     
     func loadImageIfNeeded(from urlString: String) {
-        // Only fetch if the image hasn't been loaded
         guard image == nil else { return }
+        
         networkService.fetchImage(from: urlString)
             .sink(receiveCompletion: { [weak self] completion in
                 if case .failure = completion {
