@@ -52,7 +52,7 @@ final class NetworkService: NetworkServiceProtocol {
                     case let networkError as NetworkError:
                         return networkError
                     default:
-                        return NetworkError.map(error)
+                        return NetworkError.customMap(error)
                     }
                 }
             }
