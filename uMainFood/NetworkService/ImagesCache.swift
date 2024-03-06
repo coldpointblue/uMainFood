@@ -4,7 +4,12 @@
 import SwiftUI
 import Combine
 
-class ImageCache {
+protocol ImageCacheProtocol {
+    func image(for url: NSURL) -> UIImage?
+    func setImage(_ image: UIImage, for url: NSURL)
+}
+
+class ImageCache: ImageCacheProtocol {
     static let shared = ImageCache()
     
     private var cache = NSCache<NSURL, UIImage>()
